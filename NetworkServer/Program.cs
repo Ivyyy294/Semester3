@@ -37,10 +37,16 @@ namespace NetworkServer
 
 				string message = Encoding.ASCII.GetString (buffer, 0, numberOfReceivedBytes);
 
-				Console.WriteLine ("Data sent by clients: " + message);
-			}
+				if (message == "KILL SERVER")
+					break;
 
-			Console.ReadLine();
+				Console.WriteLine ("Data sent by clients: " + message);
+
+				client.Send (buffer);
+
+				Array.Clear (buffer, 0, buffer.Length);
+				numberOfReceivedBytes = 0;
+			}
 		}
 	}
 }

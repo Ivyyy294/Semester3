@@ -20,12 +20,21 @@ namespace NetworkClient
 			server.Connect (iPAddress, port);
 			Console.WriteLine("Succesful");
 
+
 			while (true)
 			{
 				string inputCommand = Console.ReadLine();
 
 				byte[] buffer = Encoding.ASCII.GetBytes (inputCommand);
 				server.Send (buffer);
+
+				if (inputCommand == "KILL SERVER")
+					break;
+
+				byte[] inputBuffer = new byte [128];
+				int numberOfReceivedBytes = server.Receive (inputBuffer);
+				string dataReceived = Encoding.ASCII.GetString (inputBuffer, 0, numberOfReceivedBytes);
+				Console.WriteLine ("Answer: " + dataReceived);
 			}
 		}
 	}
