@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EscapeFromMedinaStation\EscapeFromMedinaStation.csproj">
+      <Project>{bc8704b7-5435-4754-9301-c1edf07e57b9}</Project>
+      <Name>EscapeFromMedinaStation</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

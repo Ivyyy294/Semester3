@@ -4,8 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.32901.82
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkServer", "NetworkServer\NetworkServer.csproj", "{C2CF19B0-61D5-48BB-9F7C-C68EDE740A1D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BC8704B7-5435-4754-9301-C1EDF07E57B9} = {BC8704B7-5435-4754-9301-C1EDF07E57B9}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkClient", "NetworkClient\NetworkClient.csproj", "{CA5CF212-62AD-46AE-B0CC-55D3772DF9BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EscapeFromMedinaStation", "EscapeFromMedinaStation\EscapeFromMedinaStation.csproj", "{BC8704B7-5435-4754-9301-C1EDF07E57B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{CA5CF212-62AD-46AE-B0CC-55D3772DF9BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA5CF212-62AD-46AE-B0CC-55D3772DF9BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA5CF212-62AD-46AE-B0CC-55D3772DF9BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC8704B7-5435-4754-9301-C1EDF07E57B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC8704B7-5435-4754-9301-C1EDF07E57B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC8704B7-5435-4754-9301-C1EDF07E57B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC8704B7-5435-4754-9301-C1EDF07E57B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

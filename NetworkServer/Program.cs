@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
+using EscapeFromMedinaStation;
 
 namespace NetworkServer
 {
 	class Program
 	{
-		static void Main(string[] args)
+		static Socket GetClientSocket()
 		{
 			//Create TCP Socket
 			Socket listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -28,34 +29,28 @@ namespace NetworkServer
 			Console.WriteLine("Waiting for clients...");
 
 			//Waits for a client to connect
-			Socket client = listenerSocket.Accept();
+			return listenerSocket.Accept();
+		}
+
+		static void Main(string[] args)
+		{
+			Page.InitContent();
+			Socket client = GetClientSocket();
 
 			Console.WriteLine("Client connected. " + client.ToString()
 				+ ", IPEndpoint: " + client.RemoteEndPoint.ToString());
 
-			byte[] buffer = new byte [128];
-			int numberOfReceivedBytes = 0;
-
 			while (true)
 			{
-				//Waits for incoming data
-				numberOfReceivedBytes = client.Receive (buffer);
+				byte pageId = GameValues.GetCurrentPage();
 
-				Console.WriteLine ("Number of received bytes: " + numberOfReceivedBytes);
+				Console.WriteLine ("Current Page: " + pageId);
 
-				string message = Encoding.ASCII.GetString (buffer, 0, numberOfReceivedBytes);
-
-				if (message == "KILL SERVER")
+				if (pageId == 255)
 					break;
 
-				Console.WriteLine ("Data sent by clients: " + message);
-
-				//Sends data to client
-				client.Send (buffer);
-
-				//Clear buffer
-				Array.Clear (buffer, 0, buffer.Length);
-				numberOfReceivedBytes = 0;
+				Page currentPage =  Page.GetPage (pageId);
+				currentPage?.RunServer(client);
 			}
 		}
 	}
