@@ -12,15 +12,22 @@ namespace NetworkServer
 	{
 		static void Main(string[] args)
 		{
+			//Create TCP Socket
 			Socket listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			
+			//Accepts connection fromm any IP address
 			IPAddress iPAddress = IPAddress.Any;
+
+			//Listens to port 23000
 			IPEndPoint iPEndPoint = new IPEndPoint (iPAddress, 23000);
 			listenerSocket.Bind (iPEndPoint);
 
+			//Allows up to 5 incomming connections
 			listenerSocket.Listen (5);
 
 			Console.WriteLine("Waiting for clients...");
 
+			//Waits for a client to connect
 			Socket client = listenerSocket.Accept();
 
 			Console.WriteLine("Client connected. " + client.ToString()
@@ -31,6 +38,7 @@ namespace NetworkServer
 
 			while (true)
 			{
+				//Waits for incoming data
 				numberOfReceivedBytes = client.Receive (buffer);
 
 				Console.WriteLine ("Number of received bytes: " + numberOfReceivedBytes);
@@ -42,8 +50,10 @@ namespace NetworkServer
 
 				Console.WriteLine ("Data sent by clients: " + message);
 
+				//Sends data to client
 				client.Send (buffer);
 
+				//Clear buffer
 				Array.Clear (buffer, 0, buffer.Length);
 				numberOfReceivedBytes = 0;
 			}

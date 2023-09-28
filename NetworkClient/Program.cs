@@ -12,7 +12,10 @@ namespace NetworkClient
 	{
 		static void Main(string[] args)
 		{
+			//Create TCP Socket
 			Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			
+			//Connect with local host
 			IPAddress iPAddress = IPAddress.Parse ("127.0.0.1");
 			int port = 23000;
 
@@ -23,15 +26,21 @@ namespace NetworkClient
 
 			while (true)
 			{
+				//Get input from console
 				string inputCommand = Console.ReadLine();
 
+				//cast input to byte array
 				byte[] buffer = Encoding.ASCII.GetBytes (inputCommand);
+
+				//send data to server
 				server.Send (buffer);
 
 				if (inputCommand == "KILL SERVER")
 					break;
 
 				byte[] inputBuffer = new byte [128];
+
+				//Get data from server
 				int numberOfReceivedBytes = server.Receive (inputBuffer);
 				string dataReceived = Encoding.ASCII.GetString (inputBuffer, 0, numberOfReceivedBytes);
 				Console.WriteLine ("Answer: " + dataReceived);
