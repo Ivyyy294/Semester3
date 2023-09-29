@@ -9,6 +9,14 @@ namespace EscapeFromMedinaStation
 {
 	public class NetworkManager
 	{
+		public enum NetCodes
+		{
+			OK = 0,
+			INVALID_ANSWER = 1,
+			BACK_NOT_POSSIBLE = 2,
+			CONDITION_NOT_MET = 3,
+		}
+
 		static public byte ReceiveByteData (Socket socket)
 		{
 			byte[] inputBuffer = new byte [128];
@@ -33,6 +41,11 @@ namespace EscapeFromMedinaStation
 		{
 			byte[] buffer = BitConverter.GetBytes (data);
 			socket.Send (buffer);
+		}
+
+		static public void SendByteData (Socket socket, NetworkManager.NetCodes netCode)
+		{
+			SendByteData (socket, (byte) netCode);
 		}
 	}
 }

@@ -290,14 +290,19 @@ namespace EscapeFromMedinaStation
 				string input = Console.ReadLine().ToLower();
 				NetworkManager.SendStringData (socket, input);
 
-				byte response = NetworkManager.ReceiveByteData(socket);
+				NetworkManager.NetCodes response = (NetworkManager.NetCodes) NetworkManager.ReceiveByteData(socket);
 
-				if (response == 0)
+				if (response == NetworkManager.NetCodes.OK)
 					return;
-				else if (response == 1)
+				else if (response == NetworkManager.NetCodes.INVALID_ANSWER)
 					Drawings.DrawCenterTextLine("Sorry i didn't understand that!\n");
-				else if (response == 2)
+				else if (response == NetworkManager.NetCodes.BACK_NOT_POSSIBLE)
 					Drawings.DrawCenterTextLine("You can't go back!\n");
+				else if (response == NetworkManager.NetCodes.CONDITION_NOT_MET)
+				{
+					string lockMessage = NetworkManager.ReceiveStringData (socket);
+					Drawings.DrawCenterTextLine (lockMessage);
+				}
 			}
 		}
 
@@ -307,7 +312,7 @@ namespace EscapeFromMedinaStation
 
 			currentPage.Action();
 
-			NetworkManager.SendByteData (socket, GetCurrentPageId());
+			NetworkManager.SendByteData (socket, currentPage.GetPageId());
 
 			//Get input
 			while (true)
@@ -321,11 +326,11 @@ namespace EscapeFromMedinaStation
 					if (GoingBackAvailable())
 					{
 						GoBack();
-						NetworkManager.SendByteData (socket, 0); //OK
+						NetworkManager.SendByteData (socket, NetworkManager.NetCodes.OK);
 						return;
 					}
 
-					NetworkManager.SendByteData (socket, 2); //You can't go back!
+					NetworkManager.SendByteData (socket, NetworkManager.NetCodes.BACK_NOT_POSSIBLE); //You can't go back!
 				}
 				else
 				{
@@ -340,14 +345,24 @@ namespace EscapeFromMedinaStation
 							if (i.CheckCondition())
 							{
 								SetCurrentPage(i.GetPageNr());
-								NetworkManager.SendByteData (socket, 0); //OK
+								NetworkManager.SendByteData (socket, NetworkManager.NetCodes.OK); //OK
 								return;
+							}
+							else
+							{
+								NetworkManager.SendByteData (socket, NetworkManager.NetCodes.CONDITION_NOT_MET);
+								string lockMessage = i.GetLockMessage();
+
+								if (lockMessage != null)
+									NetworkManager.SendStringData (socket, "\n" + lockMessage + "\n");
+								else
+									NetworkManager.SendStringData (socket, "\nThe path is blocked...\n");
 							}
 						}
 					}
 
 					if (!validInput)
-						NetworkManager.SendByteData (socket, 1); //Sorry i didn't understand that!
+						NetworkManager.SendByteData (socket, NetworkManager.NetCodes.INVALID_ANSWER); //Sorry i didn't understand that!
 				}
 			}
 		}
@@ -382,14 +397,6 @@ namespace EscapeFromMedinaStation
 			{
 				return pageHistorie.Peek() != 254;
 			}
-		}
-
-		Page GetPage (byte id)
-		{
-			if (pageMap.ContainsKey(id))
-				return pageMap[id];
-			else 
-				return null;
 		}
 
 		Page GetCurrentPage() { return pageMap[currentPage]; }

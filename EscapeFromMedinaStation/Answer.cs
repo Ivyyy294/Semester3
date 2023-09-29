@@ -20,6 +20,11 @@ namespace EscapeFromMedinaStation
 			pageNr = p;
 		}
 
+		public string GetLockMessage()
+		{
+			return lockMessage;
+		}
+
 		public void SetLockCondition(Func<bool> c, string msg)
 		{
 			lockCondition = c;
@@ -45,14 +50,7 @@ namespace EscapeFromMedinaStation
 				if (lockCondition())
 					return true;
 				else
-				{
-					if (lockMessage != null)
-						Drawings.DrawCenterTextLine("\n" + lockMessage + "\n");
-					else
-						Drawings.DrawCenterTextLine("\nThe path is blocked...\n");
-
 					return false;
-				}
 			}
 		}
 		public string GetKeyword() { return keyword; }
