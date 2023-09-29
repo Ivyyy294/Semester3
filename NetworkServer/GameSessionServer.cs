@@ -76,20 +76,31 @@ namespace NetworkServer
 
 		public override void Run ()
 		{
-			while (true)
+			try
 			{
-				byte pageId = GetCurrentPageId();
+				while (true)
+				{
+					byte pageId = GetCurrentPageId();
 
-				Console.WriteLine ("Current Page: " + pageId);
+					Console.WriteLine ("Current Page: " + pageId);
 
-				if (pageId == 255)
-					break;
+					if (pageId == 255)
+						break;
 
-				Frame();
+					Frame();
+				}
+
+				Console.WriteLine("Client disconnected. " + socket.ToString()
+					+ ", IPEndpoint: " + socket.RemoteEndPoint.ToString());
 			}
-
-			Console.WriteLine("Client disconnected. " + socket.ToString()
-				+ ", IPEndpoint: " + socket.RemoteEndPoint.ToString());
+			catch (Exception excp)
+            {
+                Console.WriteLine(excp.ToString());
+            }
+			finally
+            {
+				NetworkManager.CloseSocket (socket);
+            }
 		}
 	}
 }

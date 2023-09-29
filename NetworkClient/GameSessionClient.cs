@@ -73,7 +73,7 @@ namespace NetworkClient
 			}
 			
 			Drawings.DrawCenterTextLine("Good bye! Take care :)");
-			Console.ReadLine();			
+			Console.ReadLine();
 		}
 	}
 }

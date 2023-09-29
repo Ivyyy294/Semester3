@@ -23,11 +23,24 @@ namespace NetworkClient
 			int port = 23000;
 
 			Console.WriteLine("Connecting to server...");
-			server.Connect (iPAddress, port);
 
-			GameSessionClient session = new GameSessionClient(server);
+			try
+			{
+				server.Connect (iPAddress, port);
 
-			session.Run();
+				GameSessionClient session = new GameSessionClient(server);
+
+				session.Run();
+			}
+			catch (Exception excp)
+            {
+                Console.WriteLine(excp.ToString());
+            }
+			finally
+            {
+				NetworkManager.CloseSocket (server);
+				Console.ReadLine();
+            }
 		}
 	}
 }
