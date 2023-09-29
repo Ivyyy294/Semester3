@@ -13,9 +13,62 @@ namespace EscapeFromMedinaStation
 		private Dictionary<byte, Page> pageMap = new Dictionary<byte, Page>();
 		private byte currentPage = 254;
 		private GameValues gameValues = new GameValues();
+		protected Socket socket;
 
 		//Public Functions
-				public void InitContent()
+		public GameSession (Socket _socket)
+		{
+			socket = _socket;
+			InitContent();
+		}
+
+		public virtual void Run() { }
+		public virtual void Frame() { }
+
+		public void SetCurrentPage(byte newPage)
+		{
+			if (GetCurrentPage().GetHistorie())
+				pageHistorie.Push(currentPage);
+			currentPage = newPage;
+		}
+
+		public byte GetCurrentPageId()
+		{
+			return currentPage;
+		}
+
+		//Protected
+		protected Page GetCurrentPage() { return pageMap[currentPage]; }
+
+		protected void GoBack()
+		{
+			if (pageHistorie.Count > 0)
+				currentPage = pageHistorie.Pop();
+			else
+				currentPage = 0;
+		}
+
+		protected bool GoingBackAvailable()
+		{
+			if (pageHistorie.Count == 0)
+				return false;
+			else
+			{
+				return pageHistorie.Peek() != 254;
+			}
+		}
+
+		//Private Functions
+		void AddPage (Page p) { pageMap.Add(p.GetPageId(), p);}
+
+		void ResetGame()
+		{
+			pageHistorie.Clear();
+			currentPage = 254;
+			gameValues.ResetGameValues();
+		}
+
+		void InitContent()
 		{
 			Page menu = new Page(254);
 			Page bedroom = new Page(0);
@@ -271,143 +324,6 @@ namespace EscapeFromMedinaStation
 			blackCable.SetContent("You fix the black cable.... and BAAAAANG!\nShoot...the motherboard is fried....");
 			blackCable.SetAction(gameValues.SetRepairPosible);
 			AddPage(blackCable);
-		}
-
-		public void RunClient(Socket socket)
-		{
-			Page currentPage = GetCurrentPage();
-
-			currentPage.Draw();
-
-			int cursorPos = Drawings.DrawAnswerButtons(currentPage.GetAnswers(), currentPage.GoBackPossible() && GoingBackAvailable());
-			Console.WriteLine("");
-
-			while (true)
-			{
-				Console.SetCursorPosition(Math.Max (0, cursorPos), Console.CursorTop);
-				Console.Write("\\: ");
-
-				string input = Console.ReadLine().ToLower();
-				NetworkManager.SendStringData (socket, input);
-
-				NetworkManager.NetCodes response = (NetworkManager.NetCodes) NetworkManager.ReceiveByteData(socket);
-
-				if (response == NetworkManager.NetCodes.OK)
-					return;
-				else if (response == NetworkManager.NetCodes.INVALID_ANSWER)
-					Drawings.DrawCenterTextLine("Sorry i didn't understand that!\n");
-				else if (response == NetworkManager.NetCodes.BACK_NOT_POSSIBLE)
-					Drawings.DrawCenterTextLine("You can't go back!\n");
-				else if (response == NetworkManager.NetCodes.CONDITION_NOT_MET)
-				{
-					string lockMessage = NetworkManager.ReceiveStringData (socket);
-					Drawings.DrawCenterTextLine (lockMessage);
-				}
-			}
-		}
-
-		public void RunServer (Socket socket)
-		{
-			Page currentPage = GetCurrentPage();
-
-			currentPage.Action();
-
-			NetworkManager.SendByteData (socket, currentPage.GetPageId());
-
-			//Get input
-			while (true)
-			{
-				string input = NetworkManager.ReceiveStringData (socket);
-
-				Console.WriteLine ("Client input: " + input);
-
-				if (input.Contains("back"))
-				{
-					if (GoingBackAvailable())
-					{
-						GoBack();
-						NetworkManager.SendByteData (socket, NetworkManager.NetCodes.OK);
-						return;
-					}
-
-					NetworkManager.SendByteData (socket, NetworkManager.NetCodes.BACK_NOT_POSSIBLE); //You can't go back!
-				}
-				else
-				{
-					bool validInput = false;
-
-					foreach (Answer i in currentPage.GetAnswers())
-					{
-						if (i.IsVisible() && input.Contains(i.GetKeyword()))
-						{
-							validInput = true;
-
-							if (i.CheckCondition())
-							{
-								SetCurrentPage(i.GetPageNr());
-								NetworkManager.SendByteData (socket, NetworkManager.NetCodes.OK); //OK
-								return;
-							}
-							else
-							{
-								NetworkManager.SendByteData (socket, NetworkManager.NetCodes.CONDITION_NOT_MET);
-								string lockMessage = i.GetLockMessage();
-
-								if (lockMessage != null)
-									NetworkManager.SendStringData (socket, "\n" + lockMessage + "\n");
-								else
-									NetworkManager.SendStringData (socket, "\nThe path is blocked...\n");
-							}
-						}
-					}
-
-					if (!validInput)
-						NetworkManager.SendByteData (socket, NetworkManager.NetCodes.INVALID_ANSWER); //Sorry i didn't understand that!
-				}
-			}
-		}
-
-		public void SetCurrentPage(byte newPage)
-		{
-			if (GetCurrentPage().GetHistorie())
-				pageHistorie.Push(currentPage);
-			currentPage = newPage;
-		}
-
-		//Private Functions
-
-		public byte GetCurrentPageId()
-		{
-			return currentPage;
-		}
-
-		public void GoBack()
-		{
-			if (pageHistorie.Count > 0)
-				currentPage = pageHistorie.Pop();
-			else
-				currentPage = 0;
-		}
-
-		bool GoingBackAvailable()
-		{
-			if (pageHistorie.Count == 0)
-				return false;
-			else
-			{
-				return pageHistorie.Peek() != 254;
-			}
-		}
-
-		Page GetCurrentPage() { return pageMap[currentPage]; }
-
-		void AddPage (Page p) { pageMap.Add(p.GetPageId(), p);}
-
-		void ResetGame()
-		{
-			pageHistorie.Clear();
-			currentPage = 254;
-			gameValues.ResetGameValues();
 		}
 	}
 }

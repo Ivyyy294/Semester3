@@ -34,24 +34,12 @@ namespace NetworkServer
 
 		static void Main(string[] args)
 		{
-			GameSession session = new GameSession();
-			session.InitContent();
 			Socket client = GetClientSocket();
-
 			Console.WriteLine("Client connected. " + client.ToString()
 				+ ", IPEndpoint: " + client.RemoteEndPoint.ToString());
 
-			while (true)
-			{
-				byte pageId = session.GetCurrentPageId();
-
-				Console.WriteLine ("Current Page: " + pageId);
-
-				if (pageId == 255)
-					break;
-
-				session.RunServer(client);
-			}
+			GameSessionServer session = new GameSessionServer(client);
+			session.Run();
 		}
 	}
 }
