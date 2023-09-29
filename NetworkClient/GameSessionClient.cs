@@ -57,8 +57,6 @@ namespace NetworkClient
 
 		public override void Run()
 		{
-			Drawings.DrawLoadingScreen();
-			
 			while (true)
 			{
 				byte pageId = NetworkManager.ReceiveByteData (socket);

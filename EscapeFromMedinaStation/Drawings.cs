@@ -418,9 +418,6 @@ namespace EscapeFromMedinaStation
 
 			DrawCenterText("<<<< Complete! >>>>");
 			Console.WriteLine("\n\n\n");
-			DrawCenterText("[Press enter to continue...]", 30);
-
-			Console.ReadLine();
 		}
 
 		static public void SetCursorPositionForText (string text)

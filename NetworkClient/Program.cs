@@ -11,36 +11,96 @@ namespace NetworkClient
 {
 	class Program
 	{
+		static Socket ConnectToServer()
+		{
+			bool ok = false;
+			//Create TCP Socket
+			Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);;
+			int port = 23000;
+
+			while (!ok)
+			{
+				//Connect with local host
+				string line = "[Enter server IPv4 address]\n";
+				Drawings.DrawCenterText (line, 30);
+
+				Console.SetCursorPosition(Math.Max (0, (Console.WindowWidth - line.Length) / 2), Console.CursorTop);
+				Console.Write("\\: ");
+
+				string strIpAddress = Console.ReadLine();
+				IPAddress iPAddress = null;
+				//Cast input to IPAddress
+				try
+				{
+					iPAddress = IPAddress.Parse (strIpAddress);
+				}
+				catch (Exception excp)
+				{
+					Console.WriteLine();
+					ConsoleColor dColor = Console.ForegroundColor;
+					Console.ForegroundColor = ConsoleColor.Red;
+					Drawings.DrawCenterText ("<<< [ERROR] >>>\n", 30);
+					Drawings.DrawCenterText ("<<< Invalid server address! >>>", 30);
+					Console.WriteLine("\n");
+					Console.ForegroundColor = dColor;
+					continue;
+				}
+
+				//Connect to server
+				try
+				{
+					Console.WriteLine();
+					Drawings.DrawCenterText ("<<<< Connecting to server... >>>>\n", 30);
+					server.Connect (iPAddress, port);
+
+					Console.WriteLine();
+					ConsoleColor dColor = Console.ForegroundColor;
+					Console.ForegroundColor = ConsoleColor.Green;
+					Drawings.DrawCenterText ("<<<< [Success] >>>>\n", 30);
+					Console.ForegroundColor = dColor;
+
+					Console.WriteLine();
+					Drawings.DrawCenterText("[Press enter to continue...]", 30);
+					Console.ReadLine();
+
+					ok = true;
+				}
+				catch (Exception excp)
+				{
+					Console.WriteLine();
+					ConsoleColor dColor = Console.ForegroundColor;
+					Console.ForegroundColor = ConsoleColor.Red;
+					Drawings.DrawCenterText ("<<<< [ERROR] >>>>\n", 30);
+					Drawings.DrawCenterText ("<<<< Server not available! >>>>", 30);
+					Console.WriteLine("\n");
+					Console.ForegroundColor = dColor;
+				}
+			}
+
+			return server;
+		}
+
 		static void Main(string[] args)
 		{
 			Console.OutputEncoding = Encoding.UTF8;
 
-			//Create TCP Socket
-			Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			
-			//Connect with local host
-			IPAddress iPAddress = IPAddress.Parse ("127.0.0.1");
-			int port = 23000;
+			Drawings.DrawLoadingScreen();
 
-			Console.WriteLine("Connecting to server...");
+			Socket server = ConnectToServer();;
 
 			try
 			{
-				server.Connect (iPAddress, port);
-
 				GameSessionClient session = new GameSessionClient(server);
-
 				session.Run();
 			}
 			catch (Exception excp)
             {
+				Console.WriteLine();
                 Console.WriteLine(excp.ToString());
-            }
-			finally
-            {
-				NetworkManager.CloseSocket (server);
 				Console.ReadLine();
             }
+
+			NetworkManager.CloseSocket (server);
 		}
 	}
 }

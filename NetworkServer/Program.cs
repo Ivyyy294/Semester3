@@ -11,7 +11,7 @@ namespace NetworkServer
 {
 	class Program
 	{
-		static Socket GetClientSocket()
+		static Socket GetListenerSocket()
 		{
 			//Create TCP Socket
 			Socket listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -26,20 +26,24 @@ namespace NetworkServer
 			//Allows up to 5 incomming connections
 			listenerSocket.Listen (5);
 
-			Console.WriteLine("Waiting for clients...");
-
 			//Waits for a client to connect
-			return listenerSocket.Accept();
+			return listenerSocket;
 		}
 
 		static void Main(string[] args)
 		{
-			Socket client = GetClientSocket();
-			Console.WriteLine("Client connected. " + client.ToString()
-				+ ", IPEndpoint: " + client.RemoteEndPoint.ToString());
+			Socket listener = GetListenerSocket();
 
-			GameSessionServer session = new GameSessionServer(client);
-			session.Run();
+			while (true)
+			{
+				Console.WriteLine("Waiting for clients...");
+				Socket client = listener.Accept();
+				Console.WriteLine("Client connected. " + client.ToString()
+					+ ", IPEndpoint: " + client.RemoteEndPoint.ToString());
+
+				GameSessionServer session = new GameSessionServer(client);
+				session.Run();
+			}
 		}
 	}
 }

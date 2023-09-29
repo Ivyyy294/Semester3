@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using EscapeFromMedinaStation;
 using System.Net.Sockets;
 
@@ -27,8 +28,6 @@ namespace NetworkServer
 			while (true)
 			{
 				string input = NetworkManager.ReceiveStringData (socket);
-
-				Console.WriteLine ("Client input: " + input);
 
 				if (input.Contains("back"))
 				{
@@ -76,16 +75,24 @@ namespace NetworkServer
 
 		public override void Run ()
 		{
+			Thread ctThread = new Thread(RunIntern);
+			ctThread.Start();
+		}
+
+		void RunIntern()
+		{
 			try
 			{
 				while (true)
 				{
 					byte pageId = GetCurrentPageId();
 
-					Console.WriteLine ("Current Page: " + pageId);
-
 					if (pageId == 255)
+					{
+						//send exit code to client
+						NetworkManager.SendByteData (socket, pageId);
 						break;
+					}
 
 					Frame();
 				}
@@ -95,12 +102,10 @@ namespace NetworkServer
 			}
 			catch (Exception excp)
             {
-                Console.WriteLine(excp.ToString());
+				Console.WriteLine(excp.ToString());
             }
-			finally
-            {
-				NetworkManager.CloseSocket (socket);
-            }
+			
+			NetworkManager.CloseSocket (socket);
 		}
 	}
 }
