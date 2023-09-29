@@ -34,7 +34,8 @@ namespace NetworkServer
 
 		static void Main(string[] args)
 		{
-			Page.InitContent();
+			GameSession session = new GameSession();
+			session.InitContent();
 			Socket client = GetClientSocket();
 
 			Console.WriteLine("Client connected. " + client.ToString()
@@ -42,15 +43,14 @@ namespace NetworkServer
 
 			while (true)
 			{
-				byte pageId = GameValues.GetCurrentPage();
+				byte pageId = session.GetCurrentPageId();
 
 				Console.WriteLine ("Current Page: " + pageId);
 
 				if (pageId == 255)
 					break;
 
-				Page currentPage =  Page.GetPage (pageId);
-				currentPage?.RunServer(client);
+				session.RunServer(client);
 			}
 		}
 	}

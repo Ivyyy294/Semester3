@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Answer.cs" />
     <Compile Include="Drawings.cs" />
+    <Compile Include="GameSession.cs" />
     <Compile Include="GameValues.cs" />
     <Compile Include="NetworkManager.cs" />
     <Compile Include="Page.cs" />

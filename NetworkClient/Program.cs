@@ -13,7 +13,8 @@ namespace NetworkClient
 	{
 		static void Main(string[] args)
 		{
-			Page.InitContent();
+			GameSession session = new GameSession();
+			session.InitContent();
 			Console.OutputEncoding = Encoding.UTF8;
 
 			//Create TCP Socket
@@ -36,8 +37,8 @@ namespace NetworkClient
 					break;
 				else
 				{
-					Page current = Page.GetPage (pageId);
-					current?.RunClient (server);
+					session.SetCurrentPage (pageId);
+					session.RunClient (server);
 				}
 			}
 			
