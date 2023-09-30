@@ -19,19 +19,24 @@ namespace NetworkClient
 		{
 			Page currentPage = GetCurrentPage();
 
+			//Draw Content
 			currentPage.Draw();
 
+			//Draw available answers
 			int cursorPos = Drawings.DrawAnswerButtons(currentPage.GetAnswers(), currentPage.GoBackPossible() && GoingBackAvailable());
 			Console.WriteLine("");
 
+			//Handle player input
 			while (true)
 			{
 				Console.SetCursorPosition(Math.Max (0, cursorPos), Console.CursorTop);
 				Console.Write("\\: ");
 
+				//send input to server
 				string input = Console.ReadLine().ToLower();
 				NetworkManager.SendStringData (socket, input);
 
+				//handle server response
 				NetworkManager.NetCodes response = (NetworkManager.NetCodes) NetworkManager.ReceiveByteData(socket);
 
 				if (response == NetworkManager.NetCodes.OK)
@@ -59,8 +64,10 @@ namespace NetworkClient
 		{
 			while (true)
 			{
+				//Get current page from Server
 				byte pageId = NetworkManager.ReceiveByteData (socket);
 
+				//Exit game
 				if (pageId == 255)
 					break;
 				else
@@ -70,7 +77,8 @@ namespace NetworkClient
 				}
 			}
 			
-			Drawings.DrawCenterTextLine("Good bye! Take care :)");
+			Console.WriteLine();
+			Drawings.DrawCenterText("<<<< Good bye! Take care :) >>>>", 30);
 			Console.ReadLine();
 		}
 	}

@@ -442,6 +442,7 @@ namespace EscapeFromMedinaStation
 				Console.WriteLine(i);
 			}
 		}
+
 		static public void DrawCenterText(string text, int delayMs)
 		{
 			SetCursorPositionForText(text);
@@ -451,6 +452,14 @@ namespace EscapeFromMedinaStation
 				Console.Write(c);
 				System.Threading.Thread.Sleep(delayMs);
 			}
+		}
+
+		static public void DrawCenterText(string text, int delayMs, ConsoleColor color)
+		{
+			ConsoleColor dColor = Console.ForegroundColor;
+			Console.ForegroundColor = color;
+			DrawCenterText (text, delayMs);
+			Console.ForegroundColor = dColor;
 		}
 	}
 

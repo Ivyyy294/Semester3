@@ -37,12 +37,9 @@ namespace NetworkClient
 				catch (Exception excp)
 				{
 					Console.WriteLine();
-					ConsoleColor dColor = Console.ForegroundColor;
-					Console.ForegroundColor = ConsoleColor.Red;
-					Drawings.DrawCenterText ("<<< [ERROR] >>>\n", 30);
-					Drawings.DrawCenterText ("<<< Invalid server address! >>>", 30);
+					Drawings.DrawCenterText ("<<< [ERROR] >>>\n", 30, ConsoleColor.Red);
+					Drawings.DrawCenterText ("<<< Invalid server address! >>>", 30, ConsoleColor.Red);
 					Console.WriteLine("\n");
-					Console.ForegroundColor = dColor;
 					continue;
 				}
 
@@ -54,10 +51,7 @@ namespace NetworkClient
 					server.Connect (iPAddress, port);
 
 					Console.WriteLine();
-					ConsoleColor dColor = Console.ForegroundColor;
-					Console.ForegroundColor = ConsoleColor.Green;
-					Drawings.DrawCenterText ("<<<< [Success] >>>>\n", 30);
-					Console.ForegroundColor = dColor;
+					Drawings.DrawCenterText ("<<<< [Success] >>>>\n", 30, ConsoleColor.Green);
 
 					Console.WriteLine();
 					Drawings.DrawCenterText("[Press enter to continue...]", 30);
@@ -67,13 +61,10 @@ namespace NetworkClient
 				}
 				catch (Exception excp)
 				{
-					Console.WriteLine();
-					ConsoleColor dColor = Console.ForegroundColor;
-					Console.ForegroundColor = ConsoleColor.Red;
-					Drawings.DrawCenterText ("<<<< [ERROR] >>>>\n", 30);
-					Drawings.DrawCenterText ("<<<< Server not available! >>>>", 30);
+					Console.WriteLine();					
+					Drawings.DrawCenterText ("<<<< [ERROR] >>>>\n", 30, ConsoleColor.Red);
+					Drawings.DrawCenterText ("<<<< Server not available! >>>>", 30, ConsoleColor.Red);
 					Console.WriteLine("\n");
-					Console.ForegroundColor = dColor;
 				}
 			}
 

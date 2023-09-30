@@ -20,15 +20,18 @@ namespace NetworkServer
 		{
 			Page currentPage = GetCurrentPage();
 
+			//execute page action
 			currentPage.Action();
 
+			//send current page id to client
 			NetworkManager.SendByteData (socket, currentPage.GetPageId());
 
-			//Get input
+			//handle client input
 			while (true)
 			{
 				string input = NetworkManager.ReceiveStringData (socket);
 
+				//Go back to previous page
 				if (input.Contains("back"))
 				{
 					if (GoingBackAvailable())
@@ -40,6 +43,7 @@ namespace NetworkServer
 
 					NetworkManager.SendByteData (socket, NetworkManager.NetCodes.BACK_NOT_POSSIBLE); //You can't go back!
 				}
+				//vallidate client input
 				else
 				{
 					bool validInput = false;
@@ -53,22 +57,25 @@ namespace NetworkServer
 						{
 							validInput = true;
 
+							//Progress to next page
 							if (answer.CheckCondition())
 							{
 								SetCurrentPage(answer.GetPageNr());
-								NetworkManager.SendByteData (socket, NetworkManager.NetCodes.OK); //OK
+								NetworkManager.SendByteData (socket, NetworkManager.NetCodes.OK);
 								return;
 							}
 							else
 							{
 								NetworkManager.SendByteData (socket, NetworkManager.NetCodes.CONDITION_NOT_MET);
+
+								//sending index of lock message to client
 								NetworkManager.SendByteData (socket, (byte) i);
 							}
 						}
 					}
 
 					if (!validInput)
-						NetworkManager.SendByteData (socket, NetworkManager.NetCodes.INVALID_ANSWER); //Sorry i didn't understand that!
+						NetworkManager.SendByteData (socket, NetworkManager.NetCodes.INVALID_ANSWER);
 				}
 			}
 		}
@@ -87,9 +94,9 @@ namespace NetworkServer
 				{
 					byte pageId = GetCurrentPageId();
 
+					//send exit code to client
 					if (pageId == 255)
 					{
-						//send exit code to client
 						NetworkManager.SendByteData (socket, pageId);
 						break;
 					}
