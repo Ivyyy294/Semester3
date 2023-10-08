@@ -62,6 +62,13 @@ namespace NetworkClient
 
 		public override void Run()
 		{
+			//NetworkPackage test = new NetworkPackage(socket);
+			//test.AddValue ("short", new NetworkPackageValue ((short)5));
+			//test.AddValue ("float", new NetworkPackageValue (3f));
+			//test.AddValue ("string", new NetworkPackageValue ("Hello World!"));
+			//test.Send ();
+			//return;
+
 			while (true)
 			{
 				//Get current page from Server

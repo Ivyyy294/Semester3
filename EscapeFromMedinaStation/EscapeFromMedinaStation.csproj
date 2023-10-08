@@ -46,6 +46,8 @@
     <Compile Include="GameSession.cs" />
     <Compile Include="GameValues.cs" />
     <Compile Include="NetworkManager.cs" />
+    <Compile Include="NetworkPackage.cs" />
+    <Compile Include="NetworkPackageValue.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

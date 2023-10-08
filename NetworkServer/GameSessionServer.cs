@@ -88,6 +88,11 @@ namespace NetworkServer
 
 		void RunIntern()
 		{
+			//NetworkPackage page = new NetworkPackage(socket);
+			//page.AddValue ("Page", NetworkPackageValue.Type.SHORT);
+
+			//return;
+
 			try
 			{
 				while (true)
