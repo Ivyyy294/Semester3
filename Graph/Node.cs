@@ -1,11 +1,5 @@
 ﻿namespace Graph
 {
-	struct Position
-	{
-		float x;
-		float y;
-	}
-
 	public class Node
 	{
 		//Public
@@ -13,6 +7,8 @@
 		{
 			degree = 0;
 		}
+
+		public bool IsIsolated() { return degree == 0;}
 
 		public uint Degree() {return degree;}
 		public void IncreaseDegree() { degree++;}

@@ -1,6 +1,18 @@
 ﻿namespace Graph
 {
-	class PositionNode : Node
+	public struct Position
+	{
+		public Position (float _x, float _y)
+		{
+			x = _x;
+			y = _y;
+		}
+
+		public float x;
+		public float y;
+	}
+
+	public class PositionNode : Node
 	{
 		//Public
 		public PositionNode (string _name, Position _pos)

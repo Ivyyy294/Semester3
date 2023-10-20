@@ -17,13 +17,19 @@
 			weight = _weight;
 		}
 
+		public bool IsSelfLoop ()
+		{
+			return n1 == n2;
+		}
+
+
+		//Private
 		~Edge ()
 		{
 			n1.DecreaseDegree();
 			n2.DecreaseDegree();
 		}
 
-		//Private
 		private Node n1 = null;
 		private Node n2 = null;
 		private float weight;
