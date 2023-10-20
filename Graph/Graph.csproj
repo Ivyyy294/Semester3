@@ -45,7 +45,9 @@
   <ItemGroup>
     <Compile Include="Edge.cs" />
     <Compile Include="Graph.cs" />
+    <Compile Include="GraphSearch.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="Path.cs" />
     <Compile Include="PositionNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

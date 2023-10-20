@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Graph
 {
-	class Graph
+	public class Graph
 	{
 		//Public
 		public Graph()

@@ -42,9 +42,30 @@ namespace Graph
 
 			DisplayGraph (cityGraph);
 
-			bool test = cityGraph.IsComplete();
+			BreadthFirstSearch search = new BreadthFirstSearch();
+			Path test = search.Find (cityGraph, aachen, duesseldorf);
+
+			DisplayPath (test);
 
 			Console.ReadLine();
+		}
+
+		static void DisplayPath (Path path)
+		{
+			List <Node> nodes = path.Nodes();
+			Console.WriteLine ("Path from " + ((PositionNode) nodes[0]).GetName() + " to " + ((PositionNode) nodes[1]).GetName());
+
+			string pathStr = "";
+
+			foreach (Node i in nodes)
+			{
+				if (pathStr.Length > 0)
+					pathStr += "->";
+
+				pathStr += ((PositionNode) i).GetName();
+			}
+
+			Console.WriteLine (pathStr);
 		}
 
 		static void DisplayGraph (Graph graph)

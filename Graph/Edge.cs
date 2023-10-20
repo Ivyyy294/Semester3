@@ -1,6 +1,6 @@
 ﻿namespace Graph
 {
-	class Edge
+	public class Edge
 	{
 		//Public
 		public Edge (Node n1, Node n2, float _weight = 1f)
