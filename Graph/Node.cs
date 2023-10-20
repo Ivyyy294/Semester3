@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Graph
+﻿namespace Graph
 {
 	struct Position
 	{
@@ -12,18 +6,19 @@ namespace Graph
 		float y;
 	}
 
-	class Node
+	public class Node
 	{
-		public Node (string _name, Position _pos)
+		//Public
+		public Node ()
 		{
-			name = _name;
-			pos = _pos;
+			degree = 0;
 		}
 
-		private string name;
-		private Position pos;
-
-		string GetName () { return name;}
-		Position GetPosition() { return pos;}
+		public uint Degree() {return degree;}
+		public void IncreaseDegree() { degree++;}
+		public void DecreaseDegree() { degree--;}
+		
+		//Private
+		private uint degree;
 	}
 }

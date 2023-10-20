@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkClient", "NetworkCli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EscapeFromMedinaStation", "EscapeFromMedinaStation\EscapeFromMedinaStation.csproj", "{BC8704B7-5435-4754-9301-C1EDF07E57B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructures", "DataStructures\DataStructures.csproj", "{B030C901-6101-475A-A649-063C35571073}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graph", "Graph\Graph.csproj", "{12CFA49C-3AE2-4640-939A-5BE50F79A543}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +34,14 @@ Global
 		{BC8704B7-5435-4754-9301-C1EDF07E57B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC8704B7-5435-4754-9301-C1EDF07E57B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC8704B7-5435-4754-9301-C1EDF07E57B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B030C901-6101-475A-A649-063C35571073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B030C901-6101-475A-A649-063C35571073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B030C901-6101-475A-A649-063C35571073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B030C901-6101-475A-A649-063C35571073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12CFA49C-3AE2-4640-939A-5BE50F79A543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12CFA49C-3AE2-4640-939A-5BE50F79A543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12CFA49C-3AE2-4640-939A-5BE50F79A543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12CFA49C-3AE2-4640-939A-5BE50F79A543}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
