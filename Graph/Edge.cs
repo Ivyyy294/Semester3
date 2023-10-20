@@ -3,41 +3,37 @@
 	class Edge
 	{
 		//Public
-		public Edge (Node _n1, Node _n2)
+		public Edge (Node n1, Node n2, float _weight = 1f)
 		{
-			AddNode (_n1, n1);
-			AddNode (_n2, n2);
-			weight = 1f;
-		}
-
-		public Edge (Node _n1, Node _n2, float _weight)
-		{
-			AddNode (_n1, n1);
-			AddNode (_n2, n2);
+			nodes = new Node[2] {n1, n2 };
+			nodes[0].IncreaseDegree();
+			nodes[1].IncreaseDegree();
 			weight = _weight;
 		}
 
 		public bool IsSelfLoop ()
 		{
-			return n1 == n2;
+			return nodes[0] == nodes[1];
 		}
 
+		public Node[] GetNodes()
+		{
+			return nodes;
+		}
+
+		public bool ContainsNode (Node node)
+		{
+			return nodes[0] == node || nodes[1] == node;
+		}
 
 		//Private
 		~Edge ()
 		{
-			n1.DecreaseDegree();
-			n2.DecreaseDegree();
+			nodes[0].DecreaseDegree();
+			nodes[1].DecreaseDegree();
 		}
 
-		private Node n1 = null;
-		private Node n2 = null;
+		private Node[] nodes = null;
 		private float weight;
-
-		private void AddNode (Node srcNode, Node targetNode)
-		{
-			targetNode = srcNode;
-			targetNode.IncreaseDegree();
-		}
 	}
 }

@@ -9,9 +9,55 @@ namespace Graph
 	class Graph
 	{
 		//Public
+		public Graph()
+		{
+			edges = new List<Edge>();
+			nodes = new List<Node>();
+		}
+
+		public List <Edge> Edges() {return edges;}
+		public List <Node> Nodes() {return nodes;}
+
 		public void AddNode (Node node) { nodes.Add (node);}
 		public void AddEdge (Node n1, Node n2) { edges.Add (new Edge (n1, n2));}
 		public void AddEdge (Edge edge) { edges.Add (edge);}
+
+		public void RemoveNode (Node node)
+		{
+			foreach (Edge i in GetEdgesToNode (node))
+				RemoveEdge (i);
+
+			nodes.Remove (node);
+		}
+
+		public void RemoveEdge (Edge e)
+		{
+			edges.Remove (e);
+		}
+
+		public List <Edge> GetEdgesToNode (Node node)
+		{
+			List <Edge> nodeEdges = new List<Edge>();
+
+			foreach (Edge i in edges)
+			{
+				if (i.ContainsNode(node))
+					nodeEdges.Add (i);
+			}
+
+			return nodeEdges;
+		}
+
+		public Edge GetEdge (Node n1, Node n2)
+		{
+			foreach (Edge i in edges)
+			{
+				if (i.ContainsNode (n1) && i.ContainsNode (n2))
+					return i;
+			}
+
+			return null;
+		}
 
 		public bool IsComplete()
 		{
@@ -24,7 +70,6 @@ namespace Graph
 
 			return complete;
 		}
-
 		//Returns min length between start and dest
 		//public uint Distance (Node start, Node dest)
 		//{

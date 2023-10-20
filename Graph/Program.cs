@@ -39,6 +39,49 @@ namespace Graph
 			cityGraph.AddEdge (juelich, krefeld);
 			cityGraph.AddEdge (krefeld, duesseldorf);
 			cityGraph.AddEdge (koeln, duesseldorf);
+
+			DisplayGraph (cityGraph);
+			Console.ReadLine();
+		}
+
+		static void DisplayGraph (Graph graph)
+		{
+			Console.WriteLine ("Nodes: " + GetNodeSet(graph));
+			Console.WriteLine ("Edges: " + GetEdgeSet(graph));
+		}
+
+		static string GetNodeSet (Graph graph)
+		{
+			string nodes = "";
+
+			foreach (PositionNode i in graph.Nodes())
+			{
+				if (nodes.Length > 0)
+					nodes += ", ";
+
+				nodes += i.GetName();
+			}
+
+			return "{" + nodes + "}";
+		}
+
+		static string GetEdgeSet (Graph graph)
+		{
+			string edges = "";
+
+			foreach (Edge i in graph.Edges())
+			{
+				if (edges.Length > 0)
+					edges += ", ";
+
+				Node[] nodes = i.GetNodes();
+				PositionNode n1 = (PositionNode) nodes[0];
+				PositionNode n2 = (PositionNode) nodes[1];
+
+				edges += "{" + n1.GetName() + "," + n2.GetName() + "}";
+			}
+
+			return "{" + edges + "}";
 		}
 	}
 }
