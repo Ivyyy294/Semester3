@@ -41,6 +41,9 @@ namespace Graph
 			cityGraph.AddEdge (koeln, duesseldorf);
 
 			DisplayGraph (cityGraph);
+
+			bool test = cityGraph.IsComplete();
+
 			Console.ReadLine();
 		}
 

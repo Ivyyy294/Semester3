@@ -59,6 +59,22 @@ namespace Graph
 			return null;
 		}
 
+		public List<Node> Neighbors (Node node)
+		{
+			List <Node> neighbors = new List<Node>();
+
+			foreach (Edge i in GetEdgesToNode (node))
+			{
+				foreach (Node j in i.GetNodes())
+				{
+					if (j != node && !neighbors.Contains (j))
+						neighbors.Add (j);
+				}
+			}
+
+			return neighbors;
+		}
+
 		public bool IsComplete()
 		{
 			//Graph is not complete when it contains a self loop
