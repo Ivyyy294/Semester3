@@ -53,6 +53,13 @@ namespace Graph
 		static void DisplayPath (Path path)
 		{
 			List <Node> nodes = path.Nodes();
+			
+			if (nodes.Count == 0)
+			{
+				Console.WriteLine ("Path is empty!");
+				return;
+			}
+			
 			Console.WriteLine ("Path from " + ((PositionNode) nodes[0]).GetName() + " to " + ((PositionNode) nodes[1]).GetName());
 
 			string pathStr = "";

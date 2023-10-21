@@ -17,16 +17,20 @@ namespace Graph
 		{
 			Dictionary <Node, Node> came_from = GetCameFrom(graph, start, dest);
 
-			Node current = dest;
 			List <Node> pathNodes = new List<Node>();
-
-			while (current != start)
+			
+			if (came_from.ContainsKey (dest))
 			{
-				pathNodes.Add (current);
-				current = came_from[current];
+				Node current = dest;
+
+				while (current != start)
+				{
+					pathNodes.Add (current);
+					current = came_from[current];
+				}
+				pathNodes.Add (start);
+				pathNodes.Reverse();
 			}
-			pathNodes.Add (start);
-			pathNodes.Reverse();
 
 			Path path = new Path();
 			path.SetPath (pathNodes);
