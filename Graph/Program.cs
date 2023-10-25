@@ -40,11 +40,14 @@ namespace Graph
 			cityGraph.AddEdge (krefeld, duesseldorf);
 			cityGraph.AddEdge (koeln, duesseldorf);
 
+
 			DisplayGraph (cityGraph);
 
 			BreadthFirstSearch search = new BreadthFirstSearch();
 			Path test = search.Find (cityGraph, aachen, duesseldorf);
 
+			Console.WriteLine("");
+			
 			DisplayPath (test);
 
 			Console.ReadLine();
@@ -60,7 +63,7 @@ namespace Graph
 				return;
 			}
 			
-			Console.WriteLine ("Path from " + ((PositionNode) nodes[0]).GetName() + " to " + ((PositionNode) nodes[1]).GetName());
+			Console.WriteLine ("Path from " + ((PositionNode) nodes[0]).GetName() + " to " + ((PositionNode) nodes[nodes.Count -1]).GetName());
 
 			string pathStr = "";
 
