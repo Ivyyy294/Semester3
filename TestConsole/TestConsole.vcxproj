@@ -24,6 +24,7 @@
     <ProjectGuid>{9729c6c5-8313-4070-8020-a25978739dfb}</ProjectGuid>
     <RootNamespace>TestConsole</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>EscapeFromMedinaStation II</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

@@ -123,8 +123,14 @@
     <ClInclude Include="PrefabCoin.h">
       <Filter>01_Prefabs</Filter>
     </ClInclude>
-    <ClInclude Include="Coin.h" />
-    <ClInclude Include="Score.h" />
-    <ClInclude Include="PrefabScore.h" />
+    <ClInclude Include="Coin.h">
+      <Filter>02_Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PrefabScore.h">
+      <Filter>01_Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Score.h">
+      <Filter>02_Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
