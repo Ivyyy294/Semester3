@@ -166,7 +166,7 @@
     <ClCompile Include="PrefabLogo.cpp" />
     <ClCompile Include="PrefabScore.cpp" />
     <ClCompile Include="Score.cpp" />
-    <ClCompile Include="TestConsole.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="AnswerButton.cpp" />
     <ClCompile Include="PlayerMovement.cpp" />
   </ItemGroup>

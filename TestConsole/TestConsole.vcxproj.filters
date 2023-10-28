@@ -16,7 +16,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TestConsole.cpp">
+    <ClCompile Include="game.cpp">
       <Filter>03_src</Filter>
     </ClCompile>
     <ClCompile Include="Drawings.cpp">

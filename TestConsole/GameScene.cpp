@@ -4,7 +4,6 @@
 #include "PrefabButton.h"
 #include "PrefabButtonController.h"
 #include "Drawings.h"
-#include "Player.h"
 
 void GameScene::Init ()
 {
@@ -15,12 +14,12 @@ void GameScene::Init ()
 
 	auto buttonController = AddGameObject <PrefabButtonController> ();
 	buttonController->transform.GetLocalPosition ().x = xCenter;
-	buttonController->transform.GetLocalPosition ().y = 500;
+	buttonController->transform.GetLocalPosition ().y = 300;
 
-	auto button1 = AddGameObject <PrefabButton> ();
-	button1->SetText (L"[ Button1 ]");
-
-	buttonController->AddButton (button1.get());
-
-	AddGameObject <Player> ();
+	for (int i = 0; i < 4; ++i)
+	{
+		auto button1 = AddGameObject <PrefabButton> ();
+		button1->SetText (L"[ Button1 ]");
+		buttonController->AddButton (button1.get());
+	}
 }

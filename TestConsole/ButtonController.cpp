@@ -13,10 +13,16 @@ void ButtonController::AddButton (PrefabButton* button)
 void ButtonController::Update ()
 {
 	float totalWidth = 0.f;
-	float xStart = -totalWidth * 0.5;
 
 	for (const auto& i : buttonVec)
 		totalWidth += i->GetWidth ();
 
+	float xPos = -totalWidth * 0.5;
+
+	for (const auto& i : buttonVec)
+	{
+		i->transform.GetLocalPosition ().x = xPos;
+		xPos += i->GetWidth ();
+	}
 
 }
