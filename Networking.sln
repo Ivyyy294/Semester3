@@ -17,6 +17,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graph", "Graph\Graph.csproj", "{12CFA49C-3AE2-4640-939A-5BE50F79A543}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestConsole", "TestConsole\TestConsole.vcxproj", "{9729C6C5-8313-4070-8020-A25978739DFB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9994816D-6B9D-4C52-86FE-9F9F8471998E} = {9994816D-6B9D-4C52-86FE-9F9F8471998E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IvyyyEngine", "IvyyyEngine\IvyyyEngine\IvyyyEngine.vcxproj", "{9994816D-6B9D-4C52-86FE-9F9F8471998E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +103,16 @@ Global
 		{9729C6C5-8313-4070-8020-A25978739DFB}.Release|x64.Build.0 = Release|x64
 		{9729C6C5-8313-4070-8020-A25978739DFB}.Release|x86.ActiveCfg = Release|Win32
 		{9729C6C5-8313-4070-8020-A25978739DFB}.Release|x86.Build.0 = Release|Win32
+		{9994816D-6B9D-4C52-86FE-9F9F8471998E}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{9994816D-6B9D-4C52-86FE-9F9F8471998E}.Debug|x64.ActiveCfg = Debug|x64
+		{9994816D-6B9D-4C52-86FE-9F9F8471998E}.Debug|x64.Build.0 = Debug|x64
+		{9994816D-6B9D-4C52-86FE-9F9F8471998E}.Debug|x86.ActiveCfg = Debug|Win32
+		{9994816D-6B9D-4C52-86FE-9F9F8471998E}.Debug|x86.Build.0 = Debug|Win32
+		{9994816D-6B9D-4C52-86FE-9F9F8471998E}.Release|Any CPU.ActiveCfg = Release|Win32
+		{9994816D-6B9D-4C52-86FE-9F9F8471998E}.Release|x64.ActiveCfg = Release|x64
+		{9994816D-6B9D-4C52-86FE-9F9F8471998E}.Release|x64.Build.0 = Release|x64
+		{9994816D-6B9D-4C52-86FE-9F9F8471998E}.Release|x86.ActiveCfg = Release|Win32
+		{9994816D-6B9D-4C52-86FE-9F9F8471998E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
