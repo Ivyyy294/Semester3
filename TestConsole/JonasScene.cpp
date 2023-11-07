@@ -28,7 +28,6 @@ void JonasScene::Init ()
 	{
 		auto coin = AddGameObject <PrefabCoin> ();
 		coin->transform.SetPosition (i);
-		coin->GetComponent<Coin> ()->score = score.get();
 	}
 
 }

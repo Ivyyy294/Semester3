@@ -11,9 +11,9 @@ class ButtonController
 public:
 	ButtonController ();
 	void AddButton (PrefabButton* button);
-
 	void Update () override;
 
+	PrefabButton* GetButton (int index);
 private:
 	std::vector <PrefabButton*> buttonVec;
 };

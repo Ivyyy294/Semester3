@@ -1,7 +1,8 @@
 #include "Coin.h"
+#include "IvyyyEventSystem.h"
 
 void Coin::OnTriggerEnter ()
 {
 	gameObject->SetActive (false);
-	score->score++;
+	EventSystem::Me ()->Event ("coin").Invoke();
 }

@@ -15,14 +15,20 @@ void ButtonController::Update ()
 	float totalWidth = 0.f;
 
 	for (const auto& i : buttonVec)
-		totalWidth += i->GetWidth ();
+	{
+		if (i->IsActive())
+			totalWidth += i->GetWidth ();
+	}
 
 	float xPos = -totalWidth * 0.5;
 
 	for (const auto& i : buttonVec)
 	{
-		i->transform.GetLocalPosition ().x = xPos;
-		xPos += i->GetWidth ();
+		if (i->IsActive ())
+		{
+			i->transform.GetLocalPosition ().x = xPos;
+			xPos += i->GetWidth ();
+		}
 	}
 
 }

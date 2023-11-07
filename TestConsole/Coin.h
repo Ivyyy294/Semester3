@@ -9,6 +9,5 @@ class Coin :
 {
 public:
 	virtual void OnTriggerEnter () override;
-	Score* score;
 };
 

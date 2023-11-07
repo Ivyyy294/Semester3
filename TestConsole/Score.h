@@ -11,9 +11,12 @@ class Score :
 public:
 		virtual void Start () override;
 		virtual void Update () override;
+		virtual void Exit () override;
 
-		int score{ 0 };
+		void OnCoinCollected ();
 private:
+	int score{ 0 };
+
 	std::weak_ptr <FontMesh> fontMesh;
 };
 
