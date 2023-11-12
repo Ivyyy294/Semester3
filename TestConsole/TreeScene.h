@@ -5,6 +5,8 @@
 #include "IvyyyGeometryMesh.h"
 #include <IvyyyColor.h>
 
+using namespace Ivyyy;
+
 class TreeScene : public Ivyyy::Scene
 {
 protected:
@@ -15,10 +17,11 @@ private:
 	struct NodeInfo
 	{
 		float angle;
+		float rotation;
 		float width;
-		Ivyyy::Vector2 pos;
-		Ivyyy::GameObject* parent;
-		Ivyyy::Color color;
+		Vector2 pos;
+		GameObject* parent;
+		Color color;
 	};
 
 	struct ChildInfo
@@ -29,7 +32,6 @@ private:
 
 	void BuildTree (int depth, const int maxDepth, const NodeInfo& sideInfo);
 	ChildInfo AddTreeNodeObject (const NodeInfo& sideInfo);
-	void AddRectObject (const NodeInfo& nodeInfo, Ivyyy::GameObject* parent);
-	ChildInfo AddTriangleObject (const NodeInfo& nodeInfo, Ivyyy::GameObject* parent);
+	Vector2 GetLineEndPos (const Vector2& startPos, const float width, const float angle);
 };
 

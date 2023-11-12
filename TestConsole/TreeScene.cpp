@@ -2,7 +2,6 @@
 #include <stack>
 #include "IvyyyLine.h"
 #include "TreeScene.h"
-using namespace Ivyyy;
 
 void TreeScene::Init ()
 {
@@ -10,13 +9,16 @@ void TreeScene::Init ()
 	int depth = 1;
 
 	NodeInfo rootInfo;
-	rootInfo.width = 100.f;
-	rootInfo.angle = 45.f;
+	rootInfo.width = 96.f;
+	rootInfo.angle = 40.f;
+	rootInfo.rotation = 0.f;
 	rootInfo.parent = nullptr;
 	rootInfo.pos = Vector2 (0.f, -200.f);
 	rootInfo.width = 100.f;
+	//rootInfo.color = Color (133, 94, 66);
+	rootInfo.color = Color (152, 107, 65);
 
-	BuildTree (0, 3, rootInfo);
+	BuildTree (0, 10, rootInfo);
 }
 
 void TreeScene::BuildTree (int depth, const int maxDepth, const NodeInfo& sideInfo)
@@ -24,6 +26,13 @@ void TreeScene::BuildTree (int depth, const int maxDepth, const NodeInfo& sideIn
 	if (depth < maxDepth)
 	{
 		ChildInfo childInfo = AddTreeNodeObject (sideInfo);
+
+		if (depth + 3 == maxDepth)
+		{
+			Color pink (255, 183, 197);
+			childInfo.left.color = pink;
+			childInfo.right.color = pink;
+		}
 
 		//Call BuildTree for left and right
 		BuildTree (depth + 1, maxDepth, childInfo.left);
@@ -36,90 +45,65 @@ void TreeScene::BuildTree (int depth, const int maxDepth, const NodeInfo& sideIn
 TreeScene::ChildInfo TreeScene::AddTreeNodeObject (const NodeInfo& nodeInfo)
 {
 	//Set GameObject
-	GameObject* gameObject = AddGameObject <GameObject> ().get();
+	auto gameObject = AddGameObject <GameObject> ();
+	auto geoMesh = gameObject->AddComponent <GeometryMesh> ();
+	geoMesh->color = nodeInfo.color;
+
+	//Rect containts of P1, P2, P6 and P7 
+	Vector2 p1 (nodeInfo.width * -0.5f, 0.f);
+	Vector2 p2 (p1.x, nodeInfo.width);
+	Vector2 p6 (nodeInfo.width * 0.5f, nodeInfo.width);
+	Vector2 p7 (p6.x, 0.f);
+
+	//Triangle contains of P2, P4, P6 and sub positions P3 and P5
+
+	//Calculate P3-P5
+	//Length ankathete
+	float widhtLeft = nodeInfo.width * cos (nodeInfo.angle * (M_PI / 180.0));
+	//Length gegenkathete
+	float widhtRight = nodeInfo.width * sin (nodeInfo.angle * (M_PI / 180.0));
+	
+	Vector2 p3 = GetLineEndPos (p2, widhtLeft * 0.5f, nodeInfo.angle);
+	Vector2 p4 = GetLineEndPos (p2, widhtLeft, nodeInfo.angle);
+	Vector2 p5 = GetLineEndPos (p6, widhtRight * 0.5f,  90.f + nodeInfo.angle);
+	
+	geoMesh->points.push_back (p1);
+	geoMesh->points.push_back (p2);
+	geoMesh->points.push_back (p3);
+	geoMesh->points.push_back (p4);
+	geoMesh->points.push_back (p5);
+	geoMesh->points.push_back (p6);
+	geoMesh->points.push_back (p7);
+
 	gameObject->transform.GetLocalPosition () = nodeInfo.pos;
 
 	if (nodeInfo.parent != nullptr)
 	{
-		gameObject->transform.GetLocalRotation() = nodeInfo.angle;
+		gameObject->transform.GetLocalRotation() = nodeInfo.rotation;
 		gameObject->SetParent (nodeInfo.parent);
 	}
 
-	AddRectObject(nodeInfo, gameObject);
-	ChildInfo childInfo = AddTriangleObject (nodeInfo, gameObject);
-
-	return childInfo;
-}
-
-void TreeScene::AddRectObject (const NodeInfo& nodeInfo, Ivyyy::GameObject* parent)
-{
-	auto rectObj = AddGameObject <GameObject> ();
-
-	rectObj->SetParent (parent);
-	rectObj->transform.GetLocalPosition ().y += nodeInfo.width * 0.5f;
-
-	auto rect = rectObj->AddComponent <RectMesh> ();
-	rect->width = nodeInfo.width;
-	rect->height = nodeInfo.width;
-	rect->color = nodeInfo.color;
-}
-
-TreeScene::ChildInfo TreeScene::AddTriangleObject (const NodeInfo& nodeInfo, Ivyyy::GameObject* parent)
-{
-	auto triangleObj = AddGameObject <GameObject> ();
-	
-	triangleObj->transform.GetLocalPosition ().y += nodeInfo.width;
-	triangleObj->SetParent (parent);
-
-	auto triangle = triangleObj->AddComponent <GeometryMesh> ();
-	triangle->color = nodeInfo.color;
-
-	float xPos = nodeInfo.width * 0.5f;
-	Vector2 p1 (-xPos, 0.f);
-	Vector2 p3 (xPos, 0.f);
-
-	float widhtLeft = nodeInfo.width * cos (nodeInfo.angle * (M_PI / 180.0));
-	float widhtRight = nodeInfo.width * sin (nodeInfo.angle * (M_PI / 180.0));
-
-	Line line;
-	line.SetP1 (p1);
-	line.SetLength (widhtLeft);
-	line.SetAngle (std::abs (nodeInfo.angle));
-
-	Vector2 p2 = line.P2 ();
-
-	triangle->points.push_back (p1);
-	triangle->points.push_back (p2);
-	triangle->points.push_back (p3);
-
+	//Set Child Info
 	ChildInfo childInfo;
-	
-	Vector2 posOffset = triangleObj->transform.GetLocalPosition ();
-
-	//Left
-	childInfo.left.angle = -nodeInfo.angle;
-	childInfo.left.width = widhtLeft;
-	childInfo.left.parent = parent;
+	childInfo.left.angle = nodeInfo.angle;
 	childInfo.left.color = nodeInfo.color;
+	childInfo.left.parent = gameObject.get();
+	childInfo.left.width = widhtLeft;
+	childInfo.left.pos = p3;
+	childInfo.left.rotation = -nodeInfo.angle;
 
-	Line left (Vector2::Zero, Vector2(widhtLeft * 0.5f, 0.f));
-	left.SetAngle (std::abs (nodeInfo.angle));
-
-	childInfo.left.pos = p1 + posOffset + left.P2 ();
-
-	//Right
-	childInfo.right.angle = 90.f - nodeInfo.angle;
-	childInfo.right.width = widhtRight;
-	childInfo.right.parent = parent;
+	childInfo.right.angle = nodeInfo.angle;
 	childInfo.right.color = nodeInfo.color;
-
-	Line right (Vector2::Zero, Vector2 (widhtRight * 0.5f, 0.f));
-	right.SetAngle (-childInfo.right.angle);
-
-	childInfo.right.pos = p3 + posOffset - right.P2 ();
-
-
-	//childInfo.right.pos = right.P2 ();
-
+	childInfo.right.parent = gameObject.get ();
+	childInfo.right.width = widhtRight;
+	childInfo.right.pos = p5;
+	childInfo.right.rotation = 90.f - nodeInfo.angle;
 	return childInfo;
+}
+
+Vector2 TreeScene::GetLineEndPos (const Vector2& startPos, const float width, const float angle)
+{
+	Line line (startPos, startPos + Vector2 (width, 0.f));
+	line.SetAngle (line.Angle() + angle);
+	return line.P2 ();
 }
