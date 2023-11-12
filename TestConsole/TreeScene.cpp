@@ -1,6 +1,8 @@
 #include <math.h>
-#include <stack>
 #include "IvyyyLine.h"
+#include "IvyyyRectMesh.h"
+#include "IvyyyGeometryMesh.h"
+
 #include "TreeScene.h"
 
 void TreeScene::Init ()
@@ -15,18 +17,18 @@ void TreeScene::Init ()
 	rootInfo.parent = nullptr;
 	rootInfo.pos = Vector2 (0.f, -200.f);
 	rootInfo.width = 100.f;
-	//rootInfo.color = Color (133, 94, 66);
 	rootInfo.color = Color (152, 107, 65);
 
 	BuildTree (0, 10, rootInfo);
 }
 
-void TreeScene::BuildTree (int depth, const int maxDepth, const NodeInfo& sideInfo)
+void TreeScene::BuildTree (const int depth, const int maxDepth, const NodeInfo& sideInfo)
 {
 	if (depth < maxDepth)
 	{
 		ChildInfo childInfo = AddTreeNodeObject (sideInfo);
 
+		//Dye last two Nodes pink
 		if (depth + 3 == maxDepth)
 		{
 			Color pink (255, 183, 197);
@@ -44,9 +46,22 @@ void TreeScene::BuildTree (int depth, const int maxDepth, const NodeInfo& sideIn
 
 TreeScene::ChildInfo TreeScene::AddTreeNodeObject (const NodeInfo& nodeInfo)
 {
-	//Set GameObject
+	//Add GameObject
 	auto gameObject = AddGameObject <GameObject> ();
+
+	//Set local position, rotation and parent  from NodeInfo
+	gameObject->transform.GetLocalPosition () = nodeInfo.pos;
+
+	if (nodeInfo.parent != nullptr)
+	{
+		gameObject->transform.GetLocalRotation () = nodeInfo.rotation;
+		gameObject->SetParent (nodeInfo.parent);
+	}
+
+	//Add GeometryMesh component
 	auto geoMesh = gameObject->AddComponent <GeometryMesh> ();
+
+	//Set Mesh color
 	geoMesh->color = nodeInfo.color;
 
 	//Rect containts of P1, P2, P6 and P7 
@@ -55,18 +70,19 @@ TreeScene::ChildInfo TreeScene::AddTreeNodeObject (const NodeInfo& nodeInfo)
 	Vector2 p6 (nodeInfo.width * 0.5f, nodeInfo.width);
 	Vector2 p7 (p6.x, 0.f);
 
-	//Triangle contains of P2, P4, P6 and sub positions P3 and P5
+	//Triangle consists of P2, P4, P6 and sub positions P3 and P5
 
-	//Calculate P3-P5
 	//Length ankathete
 	float widhtLeft = nodeInfo.width * cos (nodeInfo.angle * (M_PI / 180.0));
 	//Length gegenkathete
 	float widhtRight = nodeInfo.width * sin (nodeInfo.angle * (M_PI / 180.0));
 	
+	//Calculate P3-P5
 	Vector2 p3 = GetLineEndPos (p2, widhtLeft * 0.5f, nodeInfo.angle);
 	Vector2 p4 = GetLineEndPos (p2, widhtLeft, nodeInfo.angle);
 	Vector2 p5 = GetLineEndPos (p6, widhtRight * 0.5f,  90.f + nodeInfo.angle);
 	
+	//Add points to GeometryMesh
 	geoMesh->points.push_back (p1);
 	geoMesh->points.push_back (p2);
 	geoMesh->points.push_back (p3);
@@ -75,15 +91,7 @@ TreeScene::ChildInfo TreeScene::AddTreeNodeObject (const NodeInfo& nodeInfo)
 	geoMesh->points.push_back (p6);
 	geoMesh->points.push_back (p7);
 
-	gameObject->transform.GetLocalPosition () = nodeInfo.pos;
-
-	if (nodeInfo.parent != nullptr)
-	{
-		gameObject->transform.GetLocalRotation() = nodeInfo.rotation;
-		gameObject->SetParent (nodeInfo.parent);
-	}
-
-	//Set Child Info
+	//Set Child Info struct
 	ChildInfo childInfo;
 	childInfo.left.angle = nodeInfo.angle;
 	childInfo.left.color = nodeInfo.color;

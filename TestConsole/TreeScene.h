@@ -1,8 +1,6 @@
 #pragma once
 
 #include "IvyyyScene.h"
-#include "IvyyyRectMesh.h"
-#include "IvyyyGeometryMesh.h"
 #include <IvyyyColor.h>
 
 using namespace Ivyyy;
@@ -30,7 +28,7 @@ private:
 		NodeInfo right;
 	};
 
-	void BuildTree (int depth, const int maxDepth, const NodeInfo& sideInfo);
+	void BuildTree (const int depth, const int maxDepth, const NodeInfo& sideInfo);
 	ChildInfo AddTreeNodeObject (const NodeInfo& sideInfo);
 	Vector2 GetLineEndPos (const Vector2& startPos, const float width, const float angle);
 };
