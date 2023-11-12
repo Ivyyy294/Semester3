@@ -82,6 +82,9 @@
     <ClCompile Include="PageNode.cpp">
       <Filter>03_src</Filter>
     </ClCompile>
+    <ClCompile Include="TreeScene.cpp">
+      <Filter>03_src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadingScene.h">
@@ -140,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="PageNode.h">
       <Filter>04_Util</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeScene.h">
+      <Filter>00_Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

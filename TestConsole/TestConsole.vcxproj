@@ -170,6 +170,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="AnswerButton.cpp" />
     <ClCompile Include="PlayerMovement.cpp" />
+    <ClCompile Include="TreeScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedText.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="PlayerMovement.h" />
     <ClInclude Include="PrefabScore.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="TreeScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

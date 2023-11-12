@@ -29,7 +29,7 @@ void LoadingText::Update ()
 		{
 			content += L"<<<< Loading " + std::to_wstring (percent) + L"% >>>>";
 			timer += Time::DeltaTime ();
-			percent = std::abs((timer * 1000.f) / 16);
+			percent = std::abs((timer * 1000.f) / 16.f);
 		}
 		else
 		{
@@ -42,6 +42,6 @@ void LoadingText::Update ()
 
 	fontMesh->text = content;
 
-	if (pressEnter.Done () && Input::KeyPressed (Input::KEY_RETURN))
+	if (pressEnter.Done () && Input::KeyPressed (Key::KEY_RETURN))
 		SceneHandler::LoadScene (1);
 }

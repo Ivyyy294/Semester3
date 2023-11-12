@@ -9,7 +9,8 @@
 #include "IvyyySceneHandler.h"
 #include "LoadingScene.h"
 #include "GameScene.h"
-//#include "JonasScene.h"
+#include "JonasScene.h"
+#include "TreeScene.h"
 
 // the entry point for any Windows program
 int WINAPI WinMain (HINSTANCE hInstance,
@@ -17,7 +18,8 @@ int WINAPI WinMain (HINSTANCE hInstance,
 	LPSTR lpCmdLine,
 	int nCmdShow)
 {
-	//Ivyyy::SceneHandler::AddScene <JonasScene> ();
+	Ivyyy::SceneHandler::AddScene <TreeScene> ();
+	Ivyyy::SceneHandler::AddScene <JonasScene> ();
 	Ivyyy::SceneHandler::AddScene <LoadingScene> ();
 	Ivyyy::SceneHandler::AddScene <GameScene> ();
 	return Ivyyy::IvyyyEngine::Start (hInstance, nCmdShow);

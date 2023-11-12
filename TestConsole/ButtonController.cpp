@@ -20,7 +20,7 @@ void ButtonController::Update ()
 			totalWidth += i->GetWidth ();
 	}
 
-	float xPos = -totalWidth * 0.5;
+	float xPos = -totalWidth * 0.5f;
 
 	for (const auto& i : buttonVec)
 	{
