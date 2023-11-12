@@ -28,13 +28,7 @@
     <ClCompile Include="LoadingScene.cpp">
       <Filter>03_src</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>03_src</Filter>
-    </ClCompile>
     <ClCompile Include="AnswerButton.cpp">
-      <Filter>03_src</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerMovement.cpp">
       <Filter>03_src</Filter>
     </ClCompile>
     <ClCompile Include="PrefabLogo.cpp">
@@ -64,25 +58,7 @@
     <ClCompile Include="ButtonController.cpp">
       <Filter>03_src</Filter>
     </ClCompile>
-    <ClCompile Include="JonasScene.cpp">
-      <Filter>03_src</Filter>
-    </ClCompile>
-    <ClCompile Include="PrefabCoin.cpp">
-      <Filter>03_src</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>03_src</Filter>
-    </ClCompile>
-    <ClCompile Include="Score.cpp">
-      <Filter>03_src</Filter>
-    </ClCompile>
-    <ClCompile Include="PrefabScore.cpp">
-      <Filter>03_src</Filter>
-    </ClCompile>
     <ClCompile Include="PageNode.cpp">
-      <Filter>03_src</Filter>
-    </ClCompile>
-    <ClCompile Include="TreeScene.cpp">
       <Filter>03_src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -105,9 +81,6 @@
     <ClInclude Include="PrefabDrawing.h">
       <Filter>01_Prefabs</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>01_Prefabs</Filter>
-    </ClInclude>
     <ClInclude Include="AnimatedText.h">
       <Filter>02_Components</Filter>
     </ClInclude>
@@ -123,29 +96,8 @@
     <ClInclude Include="LoadingText.h">
       <Filter>02_Components</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerMovement.h">
-      <Filter>02_Components</Filter>
-    </ClInclude>
-    <ClInclude Include="JonasScene.h">
-      <Filter>00_Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="PrefabCoin.h">
-      <Filter>01_Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>02_Components</Filter>
-    </ClInclude>
-    <ClInclude Include="PrefabScore.h">
-      <Filter>01_Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="Score.h">
-      <Filter>02_Components</Filter>
-    </ClInclude>
     <ClInclude Include="PageNode.h">
       <Filter>04_Util</Filter>
-    </ClInclude>
-    <ClInclude Include="TreeScene.h">
-      <Filter>00_Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

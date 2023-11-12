@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EscapeFromMedinaStation II"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IvyyyEngine", "IvyyyEngine\IvyyyEngine\IvyyyEngine.vcxproj", "{9994816D-6B9D-4C52-86FE-9F9F8471998E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestIvyyyEngine", "TestIvyyyEngine\TestIvyyyEngine.vcxproj", "{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,16 @@ Global
 		{9994816D-6B9D-4C52-86FE-9F9F8471998E}.Release|x64.Build.0 = Release|x64
 		{9994816D-6B9D-4C52-86FE-9F9F8471998E}.Release|x86.ActiveCfg = Release|Win32
 		{9994816D-6B9D-4C52-86FE-9F9F8471998E}.Release|x86.Build.0 = Release|Win32
+		{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}.Debug|x64.ActiveCfg = Debug|x64
+		{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}.Debug|x64.Build.0 = Debug|x64
+		{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}.Debug|x86.ActiveCfg = Debug|Win32
+		{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}.Debug|x86.Build.0 = Debug|Win32
+		{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}.Release|Any CPU.ActiveCfg = Release|Win32
+		{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}.Release|x64.ActiveCfg = Release|x64
+		{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}.Release|x64.Build.0 = Release|x64
+		{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}.Release|x86.ActiveCfg = Release|Win32
+		{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
