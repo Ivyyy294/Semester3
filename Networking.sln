@@ -24,6 +24,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IvyyyEngine", "IvyyyEngine\IvyyyEngine\IvyyyEngine.vcxproj", "{9994816D-6B9D-4C52-86FE-9F9F8471998E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestIvyyyEngine", "TestIvyyyEngine\TestIvyyyEngine.vcxproj", "{BA9EB7FD-4791-4038-B3CC-C398D9DE149D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9994816D-6B9D-4C52-86FE-9F9F8471998E} = {9994816D-6B9D-4C52-86FE-9F9F8471998E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

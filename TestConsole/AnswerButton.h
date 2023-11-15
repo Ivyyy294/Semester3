@@ -12,8 +12,10 @@ public:
 	void OnMouseEnter () override;
 	void OnMouseExit () override;
 
+	inline void SetEvent (const std::string& _event) { event = _event;}
 private:
 	float timer{ 0.f };
 	Ivyyy::FontMesh* fontMesh;
+	std::string event;
 };
 

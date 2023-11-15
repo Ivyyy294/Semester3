@@ -6,14 +6,14 @@
 using namespace Ivyyy;
 
 class PrefabButton :
-    public GameObject
+	public GameObject
 {
 public:
 	PrefabButton ();
-	void SetText (const std::wstring & text) { fontMesh->text = text; };
-	float GetWidth () const { return fontMesh->GetWidth (); }
+	inline void SetText (const std::wstring& text) { fontMesh->text = text; };
+	inline void SetEvent (const std::string& event) { script->SetEvent (event); };
+	inline float GetWidth () const { return fontMesh->GetWidth (); };
 private:
 	AnswerButton* script;
 	FontMesh* fontMesh;
 };
-

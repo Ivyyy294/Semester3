@@ -19,7 +19,7 @@ void TreeScene::Init ()
 	rootInfo.width = 100.f;
 	rootInfo.color = Color (152, 107, 65);
 
-	BuildTree (0, 10, rootInfo);
+	BuildTree (0, 12, rootInfo);
 }
 
 void TreeScene::BuildTree (const int depth, const int maxDepth, const NodeInfo& sideInfo)

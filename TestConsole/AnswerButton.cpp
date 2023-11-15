@@ -1,5 +1,6 @@
 #include "AnswerButton.h"
 #include "IvyyyTime.h"
+#include "IvyyyEventSystem.h"
 
 using namespace Ivyyy;
 
@@ -11,6 +12,9 @@ void AnswerButton::Start ()
 
 void AnswerButton::OnMouseDown ()
 {
+	if (!event.empty ())
+		EventSystem::Me ()->Event (event).Invoke ();
+
 	gameObject->SetActive (false);
 }
 
