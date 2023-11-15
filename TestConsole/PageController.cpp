@@ -1,7 +1,8 @@
+#include <IvyyyEngine.h>
+#include <IvyyyEventSystem.h>
 #include "PageController.h"
 #include "Drawings.h"
 #include "PageEdge.h"
-#include "IvyyyEventSystem.h"
 
 PageController::PageController ()
 {
@@ -15,6 +16,7 @@ void PageController::Start ()
 	EventSystem::Me ()->Event ("Answer2").Bind <PageController, &PageController::OnAnswer2> (this);
 	EventSystem::Me ()->Event ("Answer3").Bind <PageController, &PageController::OnAnswer3> (this);
 	EventSystem::Me ()->Event ("Answer4").Bind <PageController, &PageController::OnAnswer4> (this);
+	EventSystem::Me ()->Event ("Exit").Bind <PageController, &PageController::OnExit> (this);
 
 	LoadPage (currentPage);
 }
@@ -59,6 +61,9 @@ void PageController::InitPageGraph ()
 	pageGraph.AddEdge (menu, bedroom, L"play");
 	pageGraph.AddEdge (menu, exit, L"exit");
 
+	//Exit
+	exit->SetActionEvent ("Exit");
+
 	//bedroom
 	bedroom->SetDrawing (Drawings::GetBedroom());
 	bedroom->SetText (L"You are standing inside your room. The alarm is throbbing in your head.\nYour vision is blurred, but you can see a door in front of you");
@@ -92,10 +97,20 @@ void PageController::OnAnswer4 ()
 	LoadPage (edges[3]->GetNode ());
 }
 
+void PageController::OnExit ()
+{
+	Ivyyy::IvyyyEngine::Exit ();
+}
+
 void PageController::LoadPage (PageNode::Ptr page)
 {
 	if (page != nullptr)
 	{
+		const std::string& event = page->GetActionEvent ();
+
+		if (!event.empty())
+			Ivyyy::EventSystem::Me ()->Event (event).Invoke ();
+
 		prefabDrawing->SetDrawing (page->GetDrawing());
 		textMesh->text = page->GetText ();
 

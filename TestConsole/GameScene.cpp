@@ -21,8 +21,8 @@ void GameScene::Init ()
 	auto pageTextObj = AddGameObject<GameObject> ();
 	pageTextObj->transform.SetSpace (Transform2D::Space::SCREEN);
 	pageTextObj->transform.SetPosition (Vector2 (xCenter, 350.f));
-	auto textMesh = pageTextObj->AddComponent <FontMesh> ();
 
+	auto textMesh = pageTextObj->AddComponent <FontMesh> ();
 	textMesh->SetSize (800.f, 100.f);
 	textMesh->font.family = L"Consolas";
 	textMesh->font.height = 16;

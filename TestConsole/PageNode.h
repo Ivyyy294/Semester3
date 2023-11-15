@@ -15,6 +15,7 @@ public:
 	inline void SetText (const std::wstring& _text) { text = _text; }
 
 	//Get
+	inline const std::string& GetActionEvent () const { return actionEvent; }
 	inline const std::wstring& GetDrawing () const { return drawing; }
 	inline const std::wstring GetText () const { return text; }
 	inline bool IsGoBackPossible () const { return goBackPossible; }
