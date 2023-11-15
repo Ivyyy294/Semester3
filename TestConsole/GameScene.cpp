@@ -17,10 +17,22 @@ void GameScene::Init ()
 	drawing->transform.GetLocalPosition ().y = 100.f;
 	pageController->prefabDrawing = drawing.get ();
 
+	//Add Page Text
+	auto pageTextObj = AddGameObject<GameObject> ();
+	pageTextObj->transform.SetSpace (Transform2D::Space::SCREEN);
+	pageTextObj->transform.SetPosition (Vector2 (xCenter, 350.f));
+	auto textMesh = pageTextObj->AddComponent <FontMesh> ();
+
+	textMesh->SetSize (400.f, 100.f);
+	textMesh->font.family = L"Consolas";
+	textMesh->font.height = 16;
+	textMesh->font.alignment = Font::VERTICAL_LEFT | Font::HORIZONTAL_TOP;
+	pageController->textMesh = textMesh.get();
+
 	//Add PrefabButtonController
 	auto buttonController = AddGameObject <PrefabButtonController> ();
 	buttonController->transform.GetLocalPosition ().x = xCenter;
-	buttonController->transform.GetLocalPosition ().y = 300;
+	buttonController->transform.GetLocalPosition ().y = 400;
 	pageController->buttonController = buttonController->GetComponent <ButtonController>().get();
 
 	for (int i = 0; i < 4; ++i)

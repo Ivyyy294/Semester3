@@ -1,6 +1,7 @@
 #pragma once
 
-#include "IvyyyComponent.h"
+#include <IvyyyFontMesh.h>
+#include <IvyyyComponent.h>
 #include "ButtonController.h"
 #include "PrefabDrawing.h"
 #include "PageGraph.h"
@@ -13,6 +14,7 @@ public:
 	PageController ();
 	void Start () override;
 
+	FontMesh* textMesh { nullptr };
 	PrefabDrawing* prefabDrawing {nullptr};
 	ButtonController* buttonController{ nullptr };
 

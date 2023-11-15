@@ -49,6 +49,7 @@ void PageController::LoadPage (PageNode* page)
 	if (page != nullptr)
 	{
 		prefabDrawing->SetDrawing (page->GetDrawing());
+		textMesh->text = page->GetText ();
 		currentPage = page;
 	}
 }
