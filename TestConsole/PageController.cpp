@@ -56,27 +56,40 @@ void PageController::InitPageGraph ()
 	menu->SetDrawing (Drawings::Menu ());
 	menu->SetText (L"Do you want to play or do you want to exit?");
 	menu->SetActionEvent ("Reset");
+	pageGraph.AddEdge (menu, bedroom, L"play");
+	pageGraph.AddEdge (menu, exit, L"exit");
 
-	//pageGraph.AddEdge (menu, exit, L"exit");
-	//pageGraph.AddEdge (menu, bedroom, L"play");
+	//bedroom
+	bedroom->SetDrawing (Drawings::GetBedroom());
+	bedroom->SetText (L"You are standing inside your room. The alarm is throbbing in your head.\nYour vision is blurred, but you can see a door in front of you");
+	pageGraph.AddEdge (bedroom, firstHallway, L"door");
+	pageGraph.AddEdge (bedroom, picture, L"inspect");
 
 	currentPage = menu;
 }
 
 void PageController::OnAnswer1 ()
 {
+	auto edges = pageGraph.GetEdges (currentPage);
+	LoadPage (edges[0]->GetNode());
 }
 
 void PageController::OnAnswer2 ()
 {
+	auto edges = pageGraph.GetEdges (currentPage);
+	LoadPage (edges[1]->GetNode ());
 }
 
 void PageController::OnAnswer3 ()
 {
+	auto edges = pageGraph.GetEdges (currentPage);
+	LoadPage (edges[2]->GetNode ());
 }
 
 void PageController::OnAnswer4 ()
 {
+	auto edges = pageGraph.GetEdges (currentPage);
+	LoadPage (edges[3]->GetNode ());
 }
 
 void PageController::LoadPage (PageNode::Ptr page)
@@ -86,16 +99,14 @@ void PageController::LoadPage (PageNode::Ptr page)
 		prefabDrawing->SetDrawing (page->GetDrawing());
 		textMesh->text = page->GetText ();
 
-		//auto edges = pageGraph.GetEdges (page);
-		//size_t answerCount = edges.size ();
-		//
-		//for (size_t i = 0; i < answerCount; ++i)
-		//{
-		//	PageEdge::Ptr edge = edges[i];
-		//	buttonController->ActivateButton (i, edge->GetName());
-		//}
-
-		size_t answerCount = 0;
+		auto edges = pageGraph.GetEdges (page);
+		size_t answerCount = edges.size ();
+		
+		for (size_t i = 0; i < answerCount; ++i)
+		{
+			PageEdge::Ptr edge = edges[i];
+			buttonController->ActivateButton (i, L"[" + edge->GetName () + L"]");
+		}
 
 		for (size_t i = answerCount; i < 4; ++i)
 			buttonController->DisableButton (i);

@@ -14,8 +14,6 @@ void AnswerButton::OnMouseDown ()
 {
 	if (!event.empty ())
 		EventSystem::Me ()->Event (event).Invoke ();
-
-	gameObject->SetActive (false);
 }
 
 void AnswerButton::OnMouseEnter ()

@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "PageEdge.h"
 
 class PageNode
 {

@@ -1,18 +1,18 @@
 #pragma once
-
+#include <vector>
+#include "PageEdge.h"
 #include "PageNode.h"
 
 class PageGraph
 {
 public:
 	PageNode::Ptr AddNode ();
-	//PageEdge::Ptr AddEdge (PageNode::Ptr nodeFrom, PageNode::Ptr nodeTo, const std::wstring& name);
+	PageEdge::Ptr AddEdge (PageNode::Ptr nodeFrom, PageNode::Ptr nodeTo, const std::wstring& name);
 
-	//inline PageEdge::Vec GetEdges (PageNode::Ptr node) const;
+	PageEdge::Vec GetEdges (PageNode::Ptr node) const;
 private:
-	PageNode::Vec nodes;
-	//typedef std::pair <PageNode::Ptr, PageEdge::Vec> PageEdgePair;
+	typedef std::pair <PageNode::Ptr, PageEdge::Vec> PageEdgePair;
 
-	//std::vector <PageEdgePair> data;
+	std::vector <PageEdgePair> data;
 };
 
