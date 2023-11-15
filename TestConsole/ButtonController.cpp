@@ -32,3 +32,14 @@ void ButtonController::Update ()
 	}
 
 }
+
+void ButtonController::ActivateButton (const int index, const std::wstring& label)
+{
+	buttonVec[index]->SetText (label);
+	buttonVec[index]->SetActive (true);
+}
+
+void ButtonController::DisableButton (const int index)
+{
+	buttonVec[index]->SetActive (false);
+}

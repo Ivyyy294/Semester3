@@ -13,6 +13,9 @@ public:
 	void AddButton (PrefabButton* button);
 	void Update () override;
 
+	void ActivateButton (const int index, const std::wstring& label);
+	void DisableButton (const int index);
+
 	PrefabButton* GetButton (int index);
 private:
 	std::vector <PrefabButton*> buttonVec;

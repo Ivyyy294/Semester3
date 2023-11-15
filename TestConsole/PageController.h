@@ -20,9 +20,9 @@ public:
 
 private:
 	PageGraph pageGraph;
-	PageNode* currentPage {nullptr};
+	PageNode::Ptr currentPage{ nullptr };
 	void InitPageGraph ();
-	void LoadPage (PageNode* page);
+	void LoadPage (PageNode::Ptr page);
 
 	void OnAnswer1 ();
 	void OnAnswer2 ();
