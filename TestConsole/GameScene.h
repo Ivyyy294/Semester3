@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IvyyyScene.h"
+#include "PageGraph.h"
 
 using namespace Ivyyy;
 
@@ -9,5 +10,7 @@ class GameScene
 {
 protected:
 	virtual void Init () override;
+
+private:
 };
 

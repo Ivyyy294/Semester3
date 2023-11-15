@@ -14,7 +14,6 @@ void GameScene::Init ()
 	//Add PrefabDrawing
 	float xCenter = Screen::CurrentResolution ().width * 0.5f;
 	auto drawing = AddGameObject <PrefabDrawing> ();
-	drawing->SetDrawing (Drawings::Menu());
 	drawing->transform.GetLocalPosition ().y = 100.f;
 	pageController->prefabDrawing = drawing.get ();
 

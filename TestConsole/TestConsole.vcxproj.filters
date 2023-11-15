@@ -64,6 +64,15 @@
     <ClCompile Include="PageController.cpp">
       <Filter>03_src</Filter>
     </ClCompile>
+    <ClCompile Include="PageEdge.cpp">
+      <Filter>03_src</Filter>
+    </ClCompile>
+    <ClCompile Include="PageGraph.cpp">
+      <Filter>03_src</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>03_src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadingScene.h">
@@ -104,6 +113,15 @@
     </ClInclude>
     <ClInclude Include="PageController.h">
       <Filter>02_Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PageEdge.h">
+      <Filter>04_Util</Filter>
+    </ClInclude>
+    <ClInclude Include="PageGraph.h">
+      <Filter>04_Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>04_Util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -150,9 +150,12 @@
     <ClCompile Include="ButtonController.cpp" />
     <ClCompile Include="Drawings.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="LoadingText.cpp" />
     <ClCompile Include="PageController.cpp" />
+    <ClCompile Include="PageEdge.cpp" />
+    <ClCompile Include="PageGraph.cpp" />
     <ClCompile Include="PageNode.cpp" />
     <ClCompile Include="PrefabButton.cpp" />
     <ClCompile Include="PrefabButtonControler.cpp" />
@@ -167,9 +170,12 @@
     <ClInclude Include="ButtonController.h" />
     <ClInclude Include="Drawings.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="LoadingText.h" />
     <ClInclude Include="PageController.h" />
+    <ClInclude Include="PageEdge.h" />
+    <ClInclude Include="PageGraph.h" />
     <ClInclude Include="PageNode.h" />
     <ClInclude Include="PrefabButton.h" />
     <ClInclude Include="PrefabButtonController.h" />

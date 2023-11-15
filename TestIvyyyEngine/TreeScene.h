@@ -30,6 +30,6 @@ private:
 
 	void BuildTree (const int depth, const int maxDepth, const NodeInfo& sideInfo);
 	ChildInfo AddTreeNodeObject (const NodeInfo& sideInfo);
-	Vector2 GetLineEndPos (const Vector2& startPos, const float width, const float angle);
+	Vector2 GetLineEndPos (const Vector2& startPos, const float width, const float angle) const;
 };
 

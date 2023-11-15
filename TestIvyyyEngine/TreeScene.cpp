@@ -109,7 +109,7 @@ TreeScene::ChildInfo TreeScene::AddTreeNodeObject (const NodeInfo& nodeInfo)
 	return childInfo;
 }
 
-Vector2 TreeScene::GetLineEndPos (const Vector2& startPos, const float width, const float angle)
+Vector2 TreeScene::GetLineEndPos (const Vector2& startPos, const float width, const float angle) const
 {
 	Line line (startPos, startPos + Vector2 (width, 0.f));
 	line.SetAngle (line.Angle() + angle);
