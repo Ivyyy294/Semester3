@@ -34,7 +34,7 @@ void GameScene::Init ()
 	//Add PrefabButtonController
 	auto buttonController = AddGameObject <PrefabButtonController> ();
 	buttonController->transform.GetLocalPosition ().x = xCenter;
-	buttonController->transform.GetLocalPosition ().y = 375.f;
+	buttonController->transform.GetLocalPosition ().y = 400.f;
 	pageController->buttonController = buttonController->GetComponent <ButtonController>().get();
 
 	auto backButton = AddGameObject <PrefabButton> ();

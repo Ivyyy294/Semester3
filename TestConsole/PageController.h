@@ -35,6 +35,8 @@ private:
 	void OnAnswer2 ();
 	void OnAnswer3 ();
 	void OnAnswer4 ();
+	void OnAnswer5 ();
+	void OnAnswer6 ();
 
 	void OnExit ();
 	void OnBack ();

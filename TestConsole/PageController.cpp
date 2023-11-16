@@ -17,6 +17,8 @@ void PageController::Start ()
 	EventSystem::Me ()->Event ("Answer2").Bind <PageController, &PageController::OnAnswer2> (this);
 	EventSystem::Me ()->Event ("Answer3").Bind <PageController, &PageController::OnAnswer3> (this);
 	EventSystem::Me ()->Event ("Answer4").Bind <PageController, &PageController::OnAnswer4> (this);
+	EventSystem::Me ()->Event ("Answer5").Bind <PageController, &PageController::OnAnswer5> (this);
+	EventSystem::Me ()->Event ("Answer6").Bind <PageController, &PageController::OnAnswer6> (this);
 	EventSystem::Me ()->Event ("Exit").Bind <PageController, &PageController::OnExit> (this);
 	EventSystem::Me ()->Event ("Reset").Bind <PageController, &PageController::OnReset> (this);
 
@@ -145,7 +147,7 @@ void PageController::InitPageGraph ()
 	commonRoom->SetText (L"You enter the common room. The station AI demands everyone to evacuate immediately!\nAll but one escape pod are already gone!");
 	
 	PageEdge::Ptr enterPod = pageGraph.AddEdge (commonRoom, pod, L"pod");
-	enterPod->SetLockCondition (&Inventory::GetKey, L"Damn! You can't use them! It is reserved for the management!");
+	enterPod->SetCondition (&Inventory::GetKey, L"Damn! You can't use them! It is reserved for the management!");
 	
 	pageGraph.AddEdge (commonRoom, food, L"inspect");
 
@@ -225,7 +227,7 @@ void PageController::InitPageGraph ()
 	vendingMachineBroke->SetText (L"The vending machine seems to be out of order...\nBut there are still a few drinks inside.");
 
 	PageEdge::Ptr aRepair = pageGraph.AddEdge (vendingMachineBroke, repair, L"repair");
-	aRepair->SetLockCondition (&Inventory::GetRepairPossible, L"It's hopeless, the motherboard is fried...");
+	aRepair->SetCondition (&Inventory::GetRepairPossible, L"It's hopeless, the motherboard is fried...");
 
 	//Vending Machine
 	vendingMachine->SetHistorie (false);
@@ -279,15 +281,33 @@ void PageController::OnAnswer4 ()
 	SetAnswer (3);
 }
 
+void PageController::OnAnswer5 ()
+{
+	SetAnswer (4);
+}
+
+void PageController::OnAnswer6 ()
+{
+	SetAnswer (5);
+}
+
 void PageController::SetAnswer (int index)
 {
 	auto edges = pageGraph.GetEdges (currentPage);
-	pageHistory.push (currentPage);
-	nextPage = edges[index]->GetNode ();
 
-	//Diable all BUttons
-	for (size_t i = 1; i < buttonController->ButtonCount (); ++i)
-		buttonController->DisableButton (i);
+	PageEdge::Ptr edge = edges[index];
+
+	if (edge->CheckCondition ())
+	{
+		pageHistory.push (currentPage);
+		nextPage = edges[index]->GetNode ();
+
+		//Diable all BUttons
+		for (size_t i = 1; i < buttonController->ButtonCount (); ++i)
+			buttonController->DisableButton (i);
+	}
+	else
+		textMesh->text = edge->GetLockMessage ();
 }
 
 void PageController::OnExit ()
@@ -305,6 +325,7 @@ void PageController::OnBack ()
 void PageController::OnReset ()
 {
 	pageHistory = std::stack<PageNode::Ptr> ();
+	Inventory::Me ().Reset ();
 }
 
 void PageController::LoadPage (PageNode::Ptr page)
@@ -323,7 +344,7 @@ void PageController::LoadPage (PageNode::Ptr page)
 		if (pageHistory.empty ())
 			buttonController->DisableButton (0);
 		else
-			buttonController->ActivateButton (0, L"[ Back ]");
+			buttonController->ActivateButton (0, L"Back");
 
 		//Diable all BUttons
 		for (size_t i = 1; i < buttonController->ButtonCount(); ++i)
@@ -337,7 +358,7 @@ void PageController::LoadPage (PageNode::Ptr page)
 			PageEdge::Ptr edge = edges[i];
 
 			if (edge->IsVisible())
-				buttonController->ActivateButton (i + 1, L"[ " + edge->GetName () + L" ]");
+				buttonController->ActivateButton (i + 1, edge->GetName ());
 		}
 
 		currentPage = page;

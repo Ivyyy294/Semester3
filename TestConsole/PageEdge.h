@@ -18,17 +18,18 @@ public:
 	//Get
 	inline const std::wstring& GetName () const { return name; }
 	inline PageNode::Ptr GetNode () const { return node; }
+	inline const std::wstring& GetLockMessage () const { return lockMessage; }
 	bool IsVisible () const;
-	bool IsLocked () const;
+	bool CheckCondition () const;
 
 	//Set
 	inline void SetVisibleCondition (ConditionFunc _visibleCondition) { visibleCondition = _visibleCondition; }
-	inline void SetLockCondition (ConditionFunc _lockCondition, const std::wstring& msg) { lockCondition = _lockCondition; lockMessage = msg; }
+	inline void SetCondition (ConditionFunc _condition, const std::wstring& msg) { condition = _condition; lockMessage = msg; }
 
 private:
 	std::wstring name;
 	PageNode::Ptr node;
-	ConditionFunc lockCondition { nullptr };
+	ConditionFunc condition { nullptr };
 	std::wstring lockMessage;
 	ConditionFunc visibleCondition { nullptr };
 };

@@ -1,10 +1,10 @@
 #include "PageEdge.h"
 #include "PageNode.h"
 
-PageEdge::PageEdge (const std::wstring& _name, PageNode::Ptr _node, ConditionFunc _lockCondition, ConditionFunc _visibleCondition)
+PageEdge::PageEdge (const std::wstring& _name, PageNode::Ptr _node, ConditionFunc _condition, ConditionFunc _visibleCondition)
 	: name (_name)
 	, node (_node)
-	, lockCondition (_lockCondition)
+	, condition (_condition)
 	, visibleCondition (_visibleCondition)
 {
 }
@@ -12,15 +12,18 @@ PageEdge::PageEdge (const std::wstring& _name, PageNode::Ptr _node, ConditionFun
 bool PageEdge::IsVisible () const
 {
 	if (visibleCondition != nullptr)
-		return (&Inventory::Me ()->*visibleCondition)();
+		return (Inventory::Me ().*visibleCondition)();
 
 	return true;
 }
 
-bool PageEdge::IsLocked () const
+bool PageEdge::CheckCondition () const
 {
-	if (lockCondition != nullptr)
-		return (&Inventory::Me ()->*lockCondition)();
+	if (condition != nullptr)
+	{
+		Inventory& instance = Inventory::Me ();
+		return (instance.*condition)();
+	}
 
-	return false;
+	return true;
 }

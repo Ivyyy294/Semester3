@@ -14,7 +14,7 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="04_Util">
+    <Filter Include="04_Data">
       <UniqueIdentifier>{bc2e4955-7960-4f3d-82eb-275d74bb8565}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -109,19 +109,19 @@
       <Filter>02_Components</Filter>
     </ClInclude>
     <ClInclude Include="PageNode.h">
-      <Filter>04_Util</Filter>
+      <Filter>04_Data</Filter>
     </ClInclude>
     <ClInclude Include="PageController.h">
       <Filter>02_Components</Filter>
     </ClInclude>
     <ClInclude Include="PageEdge.h">
-      <Filter>04_Util</Filter>
+      <Filter>04_Data</Filter>
     </ClInclude>
     <ClInclude Include="PageGraph.h">
-      <Filter>04_Util</Filter>
+      <Filter>04_Data</Filter>
     </ClInclude>
     <ClInclude Include="Inventory.h">
-      <Filter>04_Util</Filter>
+      <Filter>04_Data</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

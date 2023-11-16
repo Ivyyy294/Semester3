@@ -2,16 +2,29 @@
 class Inventory
 {
 public:
-	inline static Inventory& Me () { return me; };
+	static Inventory& Me ()
+	{
+		static Inventory me;
+		return me;
+	}
 
-	inline bool GetMachineNotRepaired () { return !machineRepaired; };
-	inline bool GetMachineRepaired () { return machineRepaired; };
-	inline bool GetKey () { return key; };
-	inline bool GetLoose () { return !GetWin (); }
-	inline bool GetWin () { return water && food; }
-	inline bool GetRepairPossible () { return repairPossible && !machineRepaired; }
+	bool GetMachineNotRepaired ();
+	bool GetMachineRepaired ();
+	bool GetKey ();
+	bool GetLoose ();
+	bool GetWin ();
+	bool GetRepairPossible ();
+
+	void Reset ();
 private:
-	static Inventory me;
+	inline void SetKey () { key = true; };
+	inline void SetFood () { food = true; };
+	inline void SetWater () { water = true; };
+	inline void SetMachineRepaired () { machineRepaired = true; };
+	inline void SetMachineDestroyed () { repairPossible = false; };
+
+	Inventory ();
+
 	bool machineRepaired{ false };
 	bool key{ false };
 	bool water{ false };
