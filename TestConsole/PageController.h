@@ -14,6 +14,7 @@ class PageController : public Component
 public:
 	PageController ();
 	void Start () override;
+	void Update () override;
 
 	FontMesh* textMesh { nullptr };
 	PrefabDrawing* prefabDrawing {nullptr};
@@ -23,8 +24,12 @@ private:
 	PageGraph pageGraph;
 	std::stack <PageNode::Ptr> pageHistory;
 	PageNode::Ptr currentPage{ nullptr };
+	PageNode::Ptr nextPage{ nullptr };
+
 	void InitPageGraph ();
 	void LoadPage (PageNode::Ptr page);
+
+	void SetAnswer (int index);
 
 	void OnAnswer1 ();
 	void OnAnswer2 ();
@@ -34,4 +39,5 @@ private:
 	void OnExit ();
 	void OnBack ();
 	void OnReset ();
+
 };

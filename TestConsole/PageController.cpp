@@ -23,6 +23,16 @@ void PageController::Start ()
 	LoadPage (currentPage);
 }
 
+void PageController::Update ()
+{
+	//Load next page if available
+	if (nextPage != nullptr)
+	{
+		LoadPage (nextPage);
+		nextPage = nullptr;
+	}
+}
+
 void PageController::InitPageGraph ()
 {
 	//Create Pages
@@ -134,7 +144,7 @@ void PageController::InitPageGraph ()
 	commonRoom->SetDrawing (Drawings::GetCommonRoom());
 	commonRoom->SetText (L"You enter the common room. The station AI demands everyone to evacuate immediately!\nAll but one escape pod are already gone!");
 	
-	PageEdge::Ptr enterPod = pageGraph.AddEdge (maintenance, pod, L"pod");
+	PageEdge::Ptr enterPod = pageGraph.AddEdge (commonRoom, pod, L"pod");
 	enterPod->SetLockCondition (&Inventory::GetKey, L"Damn! You can't use them! It is reserved for the management!");
 	
 	pageGraph.AddEdge (commonRoom, food, L"inspect");
@@ -251,30 +261,33 @@ void PageController::InitPageGraph ()
 
 void PageController::OnAnswer1 ()
 {
-	auto edges = pageGraph.GetEdges (currentPage);
-	pageHistory.push (currentPage);
-	LoadPage (edges[0]->GetNode());
+	SetAnswer (0);
 }
 
 void PageController::OnAnswer2 ()
 {
-	auto edges = pageGraph.GetEdges (currentPage);
-	pageHistory.push (currentPage);
-	LoadPage (edges[1]->GetNode ());
+	SetAnswer (1);
 }
 
 void PageController::OnAnswer3 ()
 {
-	auto edges = pageGraph.GetEdges (currentPage);
-	pageHistory.push (currentPage);
-	LoadPage (edges[2]->GetNode ());
+	SetAnswer (2);
 }
 
 void PageController::OnAnswer4 ()
 {
+	SetAnswer (3);
+}
+
+void PageController::SetAnswer (int index)
+{
 	auto edges = pageGraph.GetEdges (currentPage);
 	pageHistory.push (currentPage);
-	LoadPage (edges[3]->GetNode ());
+	nextPage = edges[index]->GetNode ();
+
+	//Diable all BUttons
+	for (size_t i = 1; i < buttonController->ButtonCount (); ++i)
+		buttonController->DisableButton (i);
 }
 
 void PageController::OnExit ()
@@ -286,7 +299,7 @@ void PageController::OnBack ()
 {
 	PageNode::Ptr tmp = pageHistory.top ();
 	pageHistory.pop ();
-	LoadPage (tmp);
+	nextPage = tmp;
 }
 
 void PageController::OnReset ()
@@ -312,17 +325,20 @@ void PageController::LoadPage (PageNode::Ptr page)
 		else
 			buttonController->ActivateButton (0, L"[ Back ]");
 
+		//Diable all BUttons
+		for (size_t i = 1; i < buttonController->ButtonCount(); ++i)
+			buttonController->DisableButton (i);
+
 		auto edges = pageGraph.GetEdges (page);
 		size_t answerCount = edges.size ();
 		
 		for (size_t i = 0; i < answerCount; ++i)
 		{
 			PageEdge::Ptr edge = edges[i];
-			buttonController->ActivateButton (i + 1, L"[ " + edge->GetName () + L" ]");
-		}
 
-		for (size_t i = answerCount + 1; i <= 6; ++i)
-			buttonController->DisableButton (i);
+			if (edge->IsVisible())
+				buttonController->ActivateButton (i + 1, L"[ " + edge->GetName () + L" ]");
+		}
 
 		currentPage = page;
 	}

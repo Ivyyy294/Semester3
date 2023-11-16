@@ -11,10 +11,10 @@ PageEdge::PageEdge (const std::wstring& _name, PageNode::Ptr _node, ConditionFun
 
 bool PageEdge::IsVisible () const
 {
-	if (lockCondition != nullptr)
+	if (visibleCondition != nullptr)
 		return (&Inventory::Me ()->*visibleCondition)();
 
-	return false;
+	return true;
 }
 
 bool PageEdge::IsLocked () const

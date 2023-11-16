@@ -17,6 +17,8 @@ public:
 	void DisableButton (const int index);
 
 	PrefabButton* GetButton (int index);
+
+	size_t ButtonCount () const { return buttonVec.size (); }
 private:
 	std::vector <PrefabButton*> buttonVec;
 };
