@@ -2,6 +2,7 @@
 
 #include <IvyyyFontMesh.h>
 #include <IvyyyComponent.h>
+#include <stack>
 #include "ButtonController.h"
 #include "PrefabDrawing.h"
 #include "PageGraph.h"
@@ -20,6 +21,7 @@ public:
 
 private:
 	PageGraph pageGraph;
+	std::stack <PageNode::Ptr> pageHistory;
 	PageNode::Ptr currentPage{ nullptr };
 	void InitPageGraph ();
 	void LoadPage (PageNode::Ptr page);
@@ -30,4 +32,6 @@ private:
 	void OnAnswer4 ();
 
 	void OnExit ();
+	void OnBack ();
+	void OnReset ();
 };

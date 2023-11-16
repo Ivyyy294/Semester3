@@ -12,7 +12,7 @@ PrefabButton::PrefabButton ()
 	fontMesh->font.family = L"Consolas";
 	fontMesh->font.height = 16;
 	fontMesh->font.alignment = Font::HORIZONTAL_CENTER | Font::VERTICAL_CENTER;
-	//fontMesh->drawGizmo = true;
+	fontMesh->drawGizmo = true;
 
 	if (auto collider = AddComponent <RectCollider> ())
 		collider->SetSize (fontMesh->GetWidth (), fontMesh->GetHeight ());

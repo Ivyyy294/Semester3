@@ -20,10 +20,12 @@ void GameScene::Init ()
 	//Add Page Text
 	auto pageTextObj = AddGameObject<GameObject> ();
 	pageTextObj->transform.SetSpace (Transform2D::Space::SCREEN);
-	pageTextObj->transform.SetPosition (Vector2 (xCenter, 350.f));
+	float width = 800.f;
+	pageTextObj->transform.SetPosition (Vector2 (xCenter -width * 0.5f, 315.f));
 
 	auto textMesh = pageTextObj->AddComponent <FontMesh> ();
-	textMesh->SetSize (800.f, 100.f);
+	textMesh->Transform ()->SetPivot (Transform2D::Pivot::TOPLEFT);
+	textMesh->SetSize (800.f, 200.f);
 	textMesh->font.family = L"Consolas";
 	textMesh->font.height = 16;
 	textMesh->font.alignment = Font::VERTICAL_CENTER | Font::HORIZONTAL_TOP;
@@ -35,7 +37,12 @@ void GameScene::Init ()
 	buttonController->transform.GetLocalPosition ().y = 375.f;
 	pageController->buttonController = buttonController->GetComponent <ButtonController>().get();
 
-	for (int i = 0; i < 4; ++i)
+	auto backButton = AddGameObject <PrefabButton> ();
+	backButton->SetText (L"[ back ]");
+	backButton->SetEvent ("Back");
+	buttonController->AddButton (backButton.get ());
+
+	for (int i = 0; i <= 6; ++i)
 	{
 		auto button = AddGameObject <PrefabButton> ();
 		button->SetText (L"[ Button ]");

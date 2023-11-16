@@ -13,6 +13,7 @@ public:
 	inline void SetActionEvent (const std::string _actionEvent) { actionEvent = _actionEvent; };
 	inline void SetDrawing (const std::wstring& _drawing) { drawing = _drawing; }
 	inline void SetText (const std::wstring& _text) { text = _text; }
+	inline void SetHistorie (bool val) { historie = val; }
 
 	//Get
 	inline const std::string& GetActionEvent () const { return actionEvent; }
@@ -25,5 +26,6 @@ private:
 	std::wstring text;
 	std::string actionEvent;
 	bool goBackPossible{ true };
+	bool historie{ true };
 };
 
