@@ -72,6 +72,7 @@ void PageController::InitPageGraph ()
 	menu->SetDrawing (Drawings::Menu ());
 	menu->SetText (L"Do you want to play or do you want to exit?");
 	menu->SetActionEvent ("Reset");
+	menu->SetHistorie (false);
 	pageGraph.AddEdge (menu, bedroom, L"play");
 	pageGraph.AddEdge (menu, exit, L"exit");
 
@@ -121,6 +122,7 @@ void PageController::InitPageGraph ()
 
 	//cable
 	cable->SetActionEvent ("Reset");
+	cable->SetHistorie (false);
 	cable->SetDrawing (Drawings::GetDeadDrawing());
 	cable->SetText (L"You try to swim through the water, when suddenly a sparking cable falls from the ceiling.\nYou feel only a sharp pain, then everything goes black.\n\nDo you want to try again?");
 	pageGraph.AddEdge (cable, exit, L"exit");
@@ -160,6 +162,7 @@ void PageController::InitPageGraph ()
 
 	//Airlock
 	airlock->SetActionEvent ("Reset");
+	airlock->SetHistorie (false);
 	airlock->SetDrawing (Drawings::GetDeadDrawing());
 	airlock->SetText (L"You press the red button and with a loud bang you are hurled into space.\nSlowly you choke on your silent screams.\n\nDo you want to try again?");
 	pageGraph.AddEdge (airlock, exit, L"exit");
@@ -207,6 +210,7 @@ void PageController::InitPageGraph ()
 
 	//Win
 	win->SetActionEvent ("Reset");
+	win->SetHistorie (false);
 	win->SetDrawing (Drawings::DrawWinScreen());
 	win->SetText (L"You did it! You managed to escape just in the nick time and even have enough supplies to hold out until help arrives!");
 	pageGraph.AddEdge (win, exit, L"exit");
@@ -215,6 +219,7 @@ void PageController::InitPageGraph ()
 
 	//Starve
 	starve->SetActionEvent ("Reset");
+	starve->SetHistorie (false);
 	starve->SetDrawing (Drawings::GetDeadDrawing());
 	starve->SetText (L"You manage to escape from the station, but to your horror there are not enough supplies...\nBy the time rescue arrives, you have long since starved to death...");
 	pageGraph.AddEdge (starve, exit, L"exit");
@@ -299,7 +304,9 @@ void PageController::SetAnswer (int index)
 
 	if (edge->CheckCondition ())
 	{
-		pageHistory.push (currentPage);
+		if (currentPage->GetHistorie())
+			pageHistory.push (currentPage);
+
 		nextPage = edges[index]->GetNode ();
 
 		//Diable all BUttons

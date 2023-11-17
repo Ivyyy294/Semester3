@@ -20,6 +20,7 @@ public:
 	inline const std::wstring& GetDrawing () const { return drawing; }
 	inline const std::wstring GetText () const { return text; }
 	inline bool IsGoBackPossible () const { return goBackPossible; }
+	inline bool GetHistorie () const { return historie; }
 
 private:
 	std::wstring drawing;

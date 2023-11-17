@@ -41,5 +41,4 @@ private:
 	void OnExit ();
 	void OnBack ();
 	void OnReset ();
-
 };
