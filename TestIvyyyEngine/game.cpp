@@ -10,7 +10,7 @@ int WINAPI WinMain (HINSTANCE hInstance,
 	LPSTR lpCmdLine,
 	int nCmdShow)
 {
-	Ivyyy::SceneHandler::AddScene <TreeScene> ();
+	//Ivyyy::SceneHandler::AddScene <TreeScene> ();
 	Ivyyy::SceneHandler::AddScene <JonasScene> ();
 	return Ivyyy::IvyyyEngine::Start (hInstance, nCmdShow);
 }

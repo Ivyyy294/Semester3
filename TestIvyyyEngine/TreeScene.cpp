@@ -2,6 +2,7 @@
 #include "IvyyyLine.h"
 #include "IvyyyRectMesh.h"
 #include "IvyyyGeometryMesh.h"
+#include "DebugInfo.h"
 
 #include "TreeScene.h"
 
@@ -19,7 +20,16 @@ void TreeScene::Init ()
 	rootInfo.width = 100.f;
 	rootInfo.color = Color (152, 107, 65);
 
-	BuildTree (0, 12, rootInfo);
+	BuildTree (0, 13, rootInfo);
+
+	auto debug = AddGameObject <GameObject>();
+	debug->transform.SetSpace (Transform2D::Space::SCREEN);
+	debug->transform.SetPivot (Transform2D::Pivot::TOPLEFT);
+	auto fontMesh = debug->AddComponent<FontMesh> ();
+	fontMesh->font.color = Color (255, 0,0 );
+	fontMesh->font.height = 12;
+	fontMesh->SetSize (200.f, 32.f);
+	debug->AddComponent<DebugInfo> ();
 }
 
 void TreeScene::BuildTree (const int depth, const int maxDepth, const NodeInfo& sideInfo)

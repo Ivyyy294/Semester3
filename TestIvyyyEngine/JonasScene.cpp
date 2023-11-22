@@ -4,6 +4,7 @@
 #include "PrefabScore.h"
 #include "Score.h"
 #include "Coin.h"
+#include "DebugInfo.h"
 
 void JonasScene::Init ()
 {
@@ -24,10 +25,22 @@ void JonasScene::Init ()
 	auto scoreObj = AddGameObject <PrefabScore> ();
 	auto score = scoreObj->GetComponent<Score> ();
 
-	for (const auto & i : posVec)
+	for (int i = 0; i < posVec.size() * 400; ++i)
 	{
+		int index = i % posVec.size ();
+		const auto& pos = posVec[index];
 		auto coin = AddGameObject <PrefabCoin> ();
-		coin->transform.SetPosition (i);
+		coin->transform.SetPosition (pos);
 	}
+
+	//Add Debug Object
+	auto debug = AddGameObject <GameObject> ();
+	debug->transform.SetSpace (Transform2D::Space::SCREEN);
+	debug->transform.SetPivot (Transform2D::Pivot::TOPLEFT);
+	auto fontMesh = debug->AddComponent<FontMesh> ();
+	fontMesh->font.color = Color (255, 0, 0);
+	fontMesh->font.height = 12;
+	fontMesh->SetSize (200.f, 32.f);
+	debug->AddComponent<DebugInfo> ();
 
 }
