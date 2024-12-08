@@ -8,6 +8,6 @@ public:
 	void Update () override;
 
 private:
-	float speed{ 128.f };
+	float speed{ 256.f };
 };
 

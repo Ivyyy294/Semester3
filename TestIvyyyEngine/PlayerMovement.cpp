@@ -21,14 +21,25 @@ void PlayerMovement::Update ()
 		moveVec -= Vector3::Up ();
 
 	//Scale
-	if (Input::KeyPressed (Key::KEY_F))
-		transform->GetLocalScale () *= 0.9f;
+	if (Input::KeyPressed(Key::KEY_F))
+	{
+		Vector2 newScale = transform->GetLocalScale() * 0.9f;
+		transform->SetLocalScale (newScale);
+	}
 	if (Input::KeyPressed (Key::KEY_G))
-		transform->GetLocalScale () *= 1.1f;
+	{
+		Vector2 newScale = transform->GetLocalScale() * 1.1f;
+		transform->SetLocalScale(newScale);
+	}
 
 	//Rotation
-	if (Input::KeyPressed (Key::KEY_H))
-		transform->GetLocalRotation () += 45.f * Time::DeltaTime ();
+	if (Input::KeyPressed(Key::KEY_H))
+	{
+		Quaternion euler = Quaternion::Euler (Vector3 (0.f, 0.f, 45.f * Time::DeltaTime()));
+		Quaternion newRot = transform->GetLocalRotation() * euler;
+		transform->SetLocalRotation (newRot);
+	}
 
-	transform->GetLocalPosition () += moveVec.Normalized () * speed * Time::DeltaTime ();
+	Vector2 newPos = transform->GetLocalPosition() + moveVec.Normalized() * speed * Time::DeltaTime();
+	transform->SetLocalPosition(newPos);
 }

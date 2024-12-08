@@ -26,11 +26,12 @@ void ButtonController::Update ()
 	{
 		if (i->IsActive ())
 		{
-			i->transform.GetLocalPosition ().x = xPos;
+			Vector2 localPos = i->transform.GetLocalPosition();
+			localPos.x = xPos;
+			i->transform.SetLocalPosition (localPos);
 			xPos += i->GetWidth ();
 		}
 	}
-
 }
 
 void ButtonController::ActivateButton (const int index, const std::wstring& label)

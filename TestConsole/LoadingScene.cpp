@@ -6,13 +6,16 @@
 
 void LoadingScene::Init ()
 {
+	float xCenter = Screen::CurrentResolution().width * 0.5f;
+
 	auto img = AddGameObject <PrefabLogo>();
 	img->SetDrawing (Drawings::LoadingScreen ());
-	img->transform.GetLocalPosition ().x += 14.f;
+	Vector2 newPos = img->transform.GetLocalPosition();
+	newPos.x += 14.f;
+	img->transform.SetLocalPosition (newPos);
 
 	auto text = AddGameObject <GameObject> ();
 	text->AddComponent <FontMesh> ();
 	text->AddComponent <LoadingText> ();
-	text->transform.GetLocalPosition ().y = 500;
-	text->transform.GetLocalPosition ().x = Screen::CurrentResolution ().width * 0.5f;
+	text->transform.SetLocalPosition (Vector2(xCenter, 500.f));
 }

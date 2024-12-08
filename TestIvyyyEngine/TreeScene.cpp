@@ -3,7 +3,7 @@
 #include "IvyyyRectMesh.h"
 #include "IvyyyGeometryMesh.h"
 #include "DebugInfo.h"
-
+#include "IvyyyMathF.h"
 #include "TreeScene.h"
 
 void TreeScene::Init ()
@@ -20,7 +20,7 @@ void TreeScene::Init ()
 	rootInfo.width = 100.f;
 	rootInfo.color = Color (152, 107, 65);
 
-	BuildTree (0, 13, rootInfo);
+	BuildTree (0, 15, rootInfo);
 
 	auto debug = AddGameObject <GameObject>();
 	debug->transform.SetSpace (Transform2D::Space::SCREEN);
@@ -60,11 +60,11 @@ TreeScene::ChildInfo TreeScene::AddTreeNodeObject (const NodeInfo& nodeInfo)
 	auto gameObject = AddGameObject <GameObject> ();
 
 	//Set local position, rotation and parent  from NodeInfo
-	gameObject->transform.GetLocalPosition () = nodeInfo.pos;
+	gameObject->transform.SetLocalPosition (nodeInfo.pos);
 
 	if (nodeInfo.parent != nullptr)
 	{
-		gameObject->transform.GetLocalRotation () = nodeInfo.rotation;
+		gameObject->transform.SetLocalRotation (-nodeInfo.rotation);
 		gameObject->SetParent (nodeInfo.parent);
 	}
 
@@ -83,9 +83,9 @@ TreeScene::ChildInfo TreeScene::AddTreeNodeObject (const NodeInfo& nodeInfo)
 	//Triangle consists of P2, P4, P6 and sub positions P3 and P5
 
 	//Length ankathete
-	float widhtLeft = nodeInfo.width * cos (nodeInfo.angle * (M_PI / 180.0));
+	float widhtLeft = nodeInfo.width * cos (nodeInfo.angle * MathF::Deg2Rad);
 	//Length gegenkathete
-	float widhtRight = nodeInfo.width * sin (nodeInfo.angle * (M_PI / 180.0));
+	float widhtRight = nodeInfo.width * sin (nodeInfo.angle * MathF::Deg2Rad);
 	
 	//Calculate P3-P5
 	Vector2 p3 = GetLineEndPos (p2, widhtLeft * 0.5f, nodeInfo.angle);

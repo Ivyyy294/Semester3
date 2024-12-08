@@ -8,7 +8,7 @@ PrefabDrawing::PrefabDrawing ()
 	float height = 200.f;
 	transform.SetSpace (Transform2D::Space::SCREEN);
 	transform.SetPivot (Transform2D::Pivot::TOPLEFT);
-	transform.GetLocalPosition ().x = (Screen::CurrentResolution ().width - width) * 0.5f;
+	transform.SetLocalPosition (Vector2((Screen::CurrentResolution().width - width) * 0.5f, 0.f));
 	fontMesh = AddComponent<FontMesh> ().get();
 	fontMesh->SetSize (width, height);
 	fontMesh->text = L"Placeholder";

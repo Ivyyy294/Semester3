@@ -3,6 +3,9 @@
 #include "IvyyySceneHandler.h"
 #include "JonasScene.h"
 #include "TreeScene.h"
+#include "IvyyyScreen.h"
+#include "IvyyyQuaternion.h"
+#include "math.h"
 
 // the entry point for any Windows program
 int WINAPI WinMain (HINSTANCE hInstance,
@@ -10,10 +13,8 @@ int WINAPI WinMain (HINSTANCE hInstance,
 	LPSTR lpCmdLine,
 	int nCmdShow)
 {
-	//Ivyyy::SceneHandler::AddScene <TreeScene> ();
-	Ivyyy::SceneHandler::AddScene <JonasScene> ();
+	Ivyyy::Screen::SetResolution(Ivyyy::Resolution{1080, 720});
+	Ivyyy::SceneHandler::AddScene <TreeScene> ();
+	//Ivyyy::SceneHandler::AddScene <JonasScene> ();
 	return Ivyyy::IvyyyEngine::Start (hInstance, nCmdShow);
 }
-
-
-

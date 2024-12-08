@@ -16,11 +16,10 @@ namespace Graph
 		}
 
 		public List <Edge> Edges() {return edges;}
+
 		public List <Node> Nodes() {return nodes;}
 
 		public void AddNode (Node node) { nodes.Add (node);}
-		public void AddEdge (Node n1, Node n2) { edges.Add (new Edge (n1, n2));}
-		public void AddEdge (Edge edge) { edges.Add (edge);}
 
 		public void RemoveNode (Node node)
 		{
@@ -29,6 +28,10 @@ namespace Graph
 
 			nodes.Remove (node);
 		}
+
+		public void AddEdge (Node n1, Node n2) { edges.Add (new Edge (n1, n2));}
+
+		public void AddEdge (Edge edge) { edges.Add (edge);}
 
 		public void RemoveEdge (Edge e)
 		{

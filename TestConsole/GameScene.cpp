@@ -14,17 +14,20 @@ void GameScene::Init ()
 	//Add PrefabDrawing
 	float xCenter = Screen::CurrentResolution ().width * 0.5f;
 	auto drawing = AddGameObject <PrefabDrawing> ();
-	drawing->transform.GetLocalPosition ().y = 100.f;
+
+	Vector2 newPos = drawing->transform.GetLocalPosition();
+	newPos.y = 100.f;
+	drawing->transform.SetLocalPosition (newPos);
 	pageController->prefabDrawing = drawing.get ();
 
 	//Add Page Text
 	auto pageTextObj = AddGameObject<GameObject> ();
 	pageTextObj->transform.SetSpace (Transform2D::Space::SCREEN);
 	float width = 800.f;
-	pageTextObj->transform.SetPosition (Vector2 (xCenter -width * 0.5f, 315.f));
+	pageTextObj->transform.SetLocalPosition (Vector2 (xCenter -width * 0.5f, 315.f));
 
 	auto textMesh = pageTextObj->AddComponent <FontMesh> ();
-	textMesh->Transform ()->SetPivot (Transform2D::Pivot::TOPLEFT);
+	textMesh->GetTransform ()->SetPivot (Transform2D::Pivot::TOPLEFT);
 	textMesh->SetSize (800.f, 200.f);
 	textMesh->font.family = L"Consolas";
 	textMesh->font.height = 16;
@@ -33,8 +36,7 @@ void GameScene::Init ()
 
 	//Add PrefabButtonController
 	auto buttonController = AddGameObject <PrefabButtonController> ();
-	buttonController->transform.GetLocalPosition ().x = xCenter;
-	buttonController->transform.GetLocalPosition ().y = 400.f;
+	buttonController->transform.SetLocalPosition (Vector2 (xCenter, 400.f));
 	pageController->buttonController = buttonController->GetComponent <ButtonController>().get();
 
 	auto backButton = AddGameObject <PrefabButton> ();
