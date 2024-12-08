@@ -7,6 +7,7 @@ ButtonController::ButtonController ()
 void ButtonController::AddButton (PrefabButton* button)
 {
 	button->SetParent (gameObject);
+	button->transform.SetLocalPosition(Vector2::Zero);
 	buttonVec.push_back (button);
 }
 

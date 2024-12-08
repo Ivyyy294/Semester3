@@ -14,7 +14,7 @@ int WINAPI WinMain (HINSTANCE hInstance,
 	int nCmdShow)
 {
 	Ivyyy::Screen::SetResolution(Ivyyy::Resolution{1080, 720});
-	Ivyyy::SceneHandler::AddScene <TreeScene> ();
-	//Ivyyy::SceneHandler::AddScene <JonasScene> ();
+	//Ivyyy::SceneHandler::AddScene <TreeScene> ();
+	Ivyyy::SceneHandler::AddScene <JonasScene> ();
 	return Ivyyy::IvyyyEngine::Start (hInstance, nCmdShow);
 }

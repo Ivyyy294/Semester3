@@ -10,13 +10,13 @@ void JonasScene::Init ()
 {
 	auto player = AddGameObject <Player> ();
 	auto test1 = AddGameObject <PrefabCoin> ();
-	test1->transform.SetLocalPosition (Vector2(128.f, 0.f));
 	test1->SetParent (player.get());
+	test1->transform.SetLocalPosition (Vector2(128.f, 0.f));
 	auto test2 = AddGameObject <PrefabCoin> ();
-	test2->transform.SetLocalPosition(Vector2(128.f, 0.f));
 	test2->SetParent (test1.get ());
+	test2->transform.SetLocalPosition(Vector2(128.f, 0.f));
 
-	/*std::vector<Vector2> posVec;
+	std::vector<Vector2> posVec;
 	posVec.push_back (Vector2 (-128.f, 128.f));
 	posVec.push_back (Vector2 (128.f, 128.f));
 	posVec.push_back (Vector2 (-128.f, -128.f));
@@ -31,7 +31,7 @@ void JonasScene::Init ()
 		const auto& pos = posVec[index];
 		auto coin = AddGameObject <PrefabCoin> ();
 		coin->transform.SetPosition (pos);
-	}*/
+	}
 
 	//Add Debug Object
 	auto debug = AddGameObject <GameObject> ();

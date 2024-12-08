@@ -60,13 +60,9 @@ TreeScene::ChildInfo TreeScene::AddTreeNodeObject (const NodeInfo& nodeInfo)
 	auto gameObject = AddGameObject <GameObject> ();
 
 	//Set local position, rotation and parent  from NodeInfo
+	gameObject->SetParent (nodeInfo.parent);
 	gameObject->transform.SetLocalPosition (nodeInfo.pos);
-
-	if (nodeInfo.parent != nullptr)
-	{
-		gameObject->transform.SetLocalRotation (-nodeInfo.rotation);
-		gameObject->SetParent (nodeInfo.parent);
-	}
+	gameObject->transform.SetLocalRotation (-nodeInfo.rotation);
 
 	//Add GeometryMesh component
 	auto geoMesh = gameObject->AddComponent <GeometryMesh> ();
