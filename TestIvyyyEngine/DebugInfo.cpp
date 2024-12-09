@@ -8,6 +8,14 @@ void DebugInfo::Start ()
 
 void DebugInfo::Update ()
 {
+	UpdateFps();
+
+	if (fontmesh != nullptr)
+		fontmesh->text = L"FPS: " + std::to_wstring (fps) + L"\nDeltaTIme: " + std::to_wstring (deltatime);
+}
+
+void DebugInfo::UpdateFps()
+{
 	deltatime = Time::DeltaTime ();
 
 	if (timer <= 1.f)
@@ -21,7 +29,4 @@ void DebugInfo::Update ()
 		fps = tmpFps;
 		tmpFps = 0;
 	}
-
-	if (fontmesh != nullptr)
-		fontmesh->text = L"FPS: " + std::to_wstring (fps) + L"\nDeltaTIme: " + std::to_wstring (deltatime);
 }

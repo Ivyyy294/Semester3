@@ -57,12 +57,8 @@ void TreeScene::BuildTree (const int depth, const int maxDepth, const NodeInfo& 
 TreeScene::ChildInfo TreeScene::AddTreeNodeObject (const NodeInfo& nodeInfo)
 {
 	//Add GameObject
-	auto gameObject = AddGameObject <GameObject> ();
-
 	//Set local position, rotation and parent  from NodeInfo
-	gameObject->SetParent (nodeInfo.parent);
-	gameObject->transform.SetLocalPosition (nodeInfo.pos);
-	gameObject->transform.SetLocalRotation (-nodeInfo.rotation);
+	auto gameObject = AddGameObject <GameObject> (&nodeInfo.parent->transform, nodeInfo.pos, Quaternion::Euler (0.f, 0.f, -nodeInfo.rotation));
 
 	//Add GeometryMesh component
 	auto geoMesh = gameObject->AddComponent <GeometryMesh> ();

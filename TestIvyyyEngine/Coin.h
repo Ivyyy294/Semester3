@@ -9,5 +9,7 @@ class Coin :
 {
 public:
 	virtual void OnTriggerEnter () override;
+	virtual void OnDisable() override;
+	virtual void OnEnable() override;
 };
 

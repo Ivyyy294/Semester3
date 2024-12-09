@@ -11,7 +11,7 @@ void LoadingScene::Init ()
 	auto img = AddGameObject <PrefabLogo>();
 	img->SetDrawing (Drawings::LoadingScreen ());
 	Vector2 newPos = img->transform.GetLocalPosition();
-	newPos.x += 14.f;
+	newPos.y += 14.f;
 	img->transform.SetLocalPosition (newPos);
 
 	auto text = AddGameObject <GameObject> ();
