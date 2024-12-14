@@ -4,6 +4,7 @@
 
 void Coin::OnTriggerEnter ()
 {
+	//Debug::Log("Coin collected!");
 	gameObject->SetActive (false);
 	EventSystem::Me ()->Event ("coin").Invoke();
 }

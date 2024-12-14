@@ -6,13 +6,13 @@ using namespace Ivyyy;
 
 void PlayerMovement::Update ()
 {
-	Vector3 moveVec;
+	Vector2 moveVec;
 
 	//Horizontal movement
 	if (Input::KeyPressed (Key::KEY_D))
-		moveVec += Vector3::Right ();
+		moveVec += Vector2::Right;
 	if (Input::KeyPressed (Key::KEY_A))
-		moveVec -= Vector3::Right ();
+		moveVec -= Vector2::Right;
 	
 	//Vertical movement
 	if (Input::KeyPressed (Key::KEY_W))

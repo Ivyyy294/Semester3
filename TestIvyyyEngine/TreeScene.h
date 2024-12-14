@@ -2,6 +2,7 @@
 
 #include "IvyyyScene.h"
 #include <IvyyyColor.h>
+#include <IvyyyVector2.h>
 
 using namespace Ivyyy;
 
@@ -14,11 +15,11 @@ private:
 
 	struct NodeInfo
 	{
-		float angle;
-		float rotation;
-		float width;
+		float angle { 0.f };
+		float rotation { 0.f };
+		float width { 0.f };
 		Vector2 pos;
-		GameObject* parent;
+		GameObject* parent { nullptr };
 		Color color;
 	};
 

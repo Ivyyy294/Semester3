@@ -1,6 +1,5 @@
 #include <math.h>
 #include "IvyyyLine.h"
-#include "IvyyyRectMesh.h"
 #include "IvyyyGeometryMesh.h"
 #include "DebugInfo.h"
 #include "IvyyyMathF.h"
@@ -20,7 +19,7 @@ void TreeScene::Init ()
 	rootInfo.width = 100.f;
 	rootInfo.color = Color (152, 107, 65);
 
-	BuildTree (0, 15, rootInfo);
+	BuildTree (0, 14, rootInfo);
 
 	auto debug = AddGameObject <GameObject>();
 	debug->transform.SetSpace (Transform2D::Space::SCREEN);
@@ -66,32 +65,32 @@ TreeScene::ChildInfo TreeScene::AddTreeNodeObject (const NodeInfo& nodeInfo)
 	//Set Mesh color
 	geoMesh->color = nodeInfo.color;
 
+	Vector3 vertices[7];
+
 	//Rect containts of P1, P2, P6 and P7 
-	Vector2 p1 (nodeInfo.width * -0.5f, 0.f);
-	Vector2 p2 (p1.x, nodeInfo.width);
-	Vector2 p6 (nodeInfo.width * 0.5f, nodeInfo.width);
-	Vector2 p7 (p6.x, 0.f);
+	vertices[0] = Vector2 (nodeInfo.width * -0.5f, 0.0f);
+	vertices[1] = Vector2 (vertices[0].x, nodeInfo.width);
+	vertices[5] = Vector2 (nodeInfo.width * 0.5f, nodeInfo.width);
+	vertices[6] = Vector2 (vertices[5].x, 0.0f);
 
 	//Triangle consists of P2, P4, P6 and sub positions P3 and P5
 
 	//Length ankathete
-	float widhtLeft = nodeInfo.width * cos (nodeInfo.angle * MathF::Deg2Rad);
+	float widhtLeft = nodeInfo.width * cosf (nodeInfo.angle * MathF::Deg2Rad);
 	//Length gegenkathete
-	float widhtRight = nodeInfo.width * sin (nodeInfo.angle * MathF::Deg2Rad);
+	float widhtRight = nodeInfo.width * sinf (nodeInfo.angle * MathF::Deg2Rad);
 	
 	//Calculate P3-P5
-	Vector2 p3 = GetLineEndPos (p2, widhtLeft * 0.5f, nodeInfo.angle);
-	Vector2 p4 = GetLineEndPos (p2, widhtLeft, nodeInfo.angle);
-	Vector2 p5 = GetLineEndPos (p6, widhtRight * 0.5f,  90.f + nodeInfo.angle);
-	
+	vertices[2] = GetLineEndPos (vertices[1], widhtLeft * 0.5f, nodeInfo.angle);
+	vertices[3] = GetLineEndPos (vertices[1], widhtLeft, nodeInfo.angle);
+	vertices[4] = GetLineEndPos (vertices[5], widhtRight * 0.5f,  90.0f + nodeInfo.angle);
+
 	//Add points to GeometryMesh
-	geoMesh->points.push_back (p1);
-	geoMesh->points.push_back (p2);
-	geoMesh->points.push_back (p3);
-	geoMesh->points.push_back (p4);
-	geoMesh->points.push_back (p5);
-	geoMesh->points.push_back (p6);
-	geoMesh->points.push_back (p7);
+	geoMesh->m_mesh.SetVertices (vertices, 7);
+
+	//Set index list
+	unsigned long indices[] {0, 1, 2, 3, 4, 5, 6};
+	geoMesh->m_mesh.SetIndices(indices, 7);
 
 	//Set Child Info struct
 	ChildInfo childInfo;
@@ -99,14 +98,14 @@ TreeScene::ChildInfo TreeScene::AddTreeNodeObject (const NodeInfo& nodeInfo)
 	childInfo.left.color = nodeInfo.color;
 	childInfo.left.parent = gameObject.get();
 	childInfo.left.width = widhtLeft;
-	childInfo.left.pos = p3;
+	childInfo.left.pos = vertices[2];
 	childInfo.left.rotation = -nodeInfo.angle;
 
 	childInfo.right.angle = nodeInfo.angle;
 	childInfo.right.color = nodeInfo.color;
 	childInfo.right.parent = gameObject.get ();
 	childInfo.right.width = widhtRight;
-	childInfo.right.pos = p5;
+	childInfo.right.pos = vertices[4];
 	childInfo.right.rotation = 90.f - nodeInfo.angle;
 	return childInfo;
 }

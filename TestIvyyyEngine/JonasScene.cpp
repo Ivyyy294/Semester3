@@ -21,11 +21,11 @@ void JonasScene::Init ()
 	auto scoreObj = AddGameObject <PrefabScore> ();
 	auto score = scoreObj->GetComponent<Score> ();
 
-	for (int i = 0; i < posVec.size() * 400; ++i)
+	for (size_t i = 0; i < posVec.size() * 1; ++i)
 	{
 		int index = i % posVec.size ();
 		const auto& pos = posVec[index];
-		auto coin = AddGameObject <PrefabCoin> (pos);
+		AddGameObject <PrefabCoin> (pos);
 	}
 
 	//Add Debug Object

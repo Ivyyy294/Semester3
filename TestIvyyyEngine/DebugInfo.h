@@ -14,15 +14,15 @@ public:
 private:
 	int tmpFps{ 0 };
 	int fps{ 0 };
-	float deltatime;
+	float deltatime{ 0.f };
 	float timer{ 0.f };
 
 	int m_colliderCount{ 0 };
 	int m_meshCount{ 0 };
 
-	FontMesh* fontmesh;
+	FontMesh* fontmesh {nullptr };
 
 	void UpdateFps();
-	void UpdateColliderCount();
+	//void UpdateColliderCount();
 };
 
