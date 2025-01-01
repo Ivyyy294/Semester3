@@ -23,12 +23,12 @@ void PlayerMovement::Update ()
 	//Scale
 	if (Input::KeyPressed(Key::KEY_F))
 	{
-		Vector2 newScale = transform->GetLocalScale() * 0.9f;
+		Vector2 newScale = transform->GetLocalScale() * (1.f - Time::DeltaTime());
 		transform->SetLocalScale (newScale);
 	}
 	if (Input::KeyPressed (Key::KEY_G))
 	{
-		Vector2 newScale = transform->GetLocalScale() * 1.1f;
+		Vector2 newScale = transform->GetLocalScale() * (1.f + Time::DeltaTime());
 		transform->SetLocalScale(newScale);
 	}
 

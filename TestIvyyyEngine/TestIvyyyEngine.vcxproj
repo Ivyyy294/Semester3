@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="ColorShader.cpp" />
+    <ClCompile Include="D3DTestScene.cpp" />
     <ClCompile Include="DebugInfo.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="JonasScene.cpp" />
@@ -28,10 +30,13 @@
     <ClCompile Include="PrefabCoin.cpp" />
     <ClCompile Include="PrefabScore.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="TextureShaderClass.cpp" />
     <ClCompile Include="TreeScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coin.h" />
+    <ClInclude Include="ColorShader.h" />
+    <ClInclude Include="D3DTestScene.h" />
     <ClInclude Include="DebugInfo.h" />
     <ClInclude Include="JonasScene.h" />
     <ClInclude Include="Player.h" />
@@ -39,7 +44,25 @@
     <ClInclude Include="PrefabCoin.h" />
     <ClInclude Include="PrefabScore.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="TextureShaderClass.h" />
     <ClInclude Include="TreeScene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="color.ps">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="color.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="ShaderGlobals.hlsli" />
+    <None Include="TextureVS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TexturePS.hlsl">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -113,7 +136,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;IVYYY_D3D;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
