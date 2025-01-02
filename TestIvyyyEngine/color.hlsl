@@ -1,12 +1,7 @@
 /////////////
 // GLOBALS //
 /////////////
-cbuffer MatrixBuffer
-{
-	matrix worldMatrix;
-	matrix viewMatrix;
-	matrix projectionMatrix;
-};
+#include "ShaderGlobals.hlsli"
 
 //Typedefs
 struct VertexInputType

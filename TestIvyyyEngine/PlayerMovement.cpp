@@ -33,12 +33,34 @@ void PlayerMovement::Update ()
 	}
 
 	//Rotation
-	if (Input::KeyPressed(Key::KEY_H))
+	if (Input::KeyPressed(Key::KEY_UP))
 	{
-		Quaternion euler = Quaternion::Euler (Vector3 (0.f, 0.f, 45.f * Time::DeltaTime()));
+		Quaternion euler = Quaternion::Euler(Vector3(45.f * Time::DeltaTime(), 0.f, 0.f));
+		Quaternion newRot = transform->GetLocalRotation() * euler;
+		transform->SetLocalRotation(newRot);
+	}
+
+	if (Input::KeyPressed(Key::KEY_DOWN))
+	{
+		Quaternion euler = Quaternion::Euler(Vector3(-45.f * Time::DeltaTime(), 0.f, 0.f));
+		Quaternion newRot = transform->GetLocalRotation() * euler;
+		transform->SetLocalRotation(newRot);
+	}
+
+	if (Input::KeyPressed(Key::KEY_RIGHT))
+	{
+		Quaternion euler = Quaternion::Euler (Vector3 (0.f, 45.f * Time::DeltaTime(), 0.f));
 		Quaternion newRot = transform->GetLocalRotation() * euler;
 		transform->SetLocalRotation (newRot);
 	}
+
+	if (Input::KeyPressed(Key::KEY_LEFT))
+	{
+		Quaternion euler = Quaternion::Euler(Vector3(0.f, -45.f * Time::DeltaTime(), 0.f));
+		Quaternion newRot = transform->GetLocalRotation() * euler;
+		transform->SetLocalRotation(newRot);
+	}
+
 
 	Vector2 newPos = transform->GetLocalPosition() + moveVec.Normalized() * speed * Time::DeltaTime();
 	transform->SetLocalPosition(newPos);

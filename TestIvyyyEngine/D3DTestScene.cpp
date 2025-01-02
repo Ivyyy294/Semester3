@@ -10,6 +10,7 @@ void D3DTestScene::Init()
 {
 	auto obj = AddGameObject<GameObject>();
 	auto meshRenderer = obj->AddComponent<MeshRenderer>();
+	meshRenderer->SetMesh(Mesh::Cube());
 	meshRenderer->SetShader (new TextureShaderClass);
 	//meshRenderer->SetShader (new ColorShader);
 

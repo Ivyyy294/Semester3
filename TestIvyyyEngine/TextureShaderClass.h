@@ -15,11 +15,13 @@ namespace Ivyyy
 		bool InitializeVertexBuffer(ID3D11Device* device, Mesh* mesh) override;
 		unsigned int GetVertexBufferStride() override;
 		bool SetShaderParameters(const D3DShaderRenderData& shaderData) override;
+		void ShutdownShader() override;
 
 	private:
-		Texture* m_texture;
-		ID3D11ShaderResourceView* m_srv;
-		ID3D11SamplerState* m_sampleState;
+		Texture* m_texture { nullptr };
+		ID3D11ShaderResourceView* m_srv { 0 };
+		ID3D11SamplerState* m_sampleState { 0 };
+		ID3D11Buffer* m_lightBuffer { 0 };
 
 		bool LoadTexture(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* filename);
 		void ReleaseTexture();
@@ -28,6 +30,7 @@ namespace Ivyyy
 		{
 			XMFLOAT3 position;
 			XMFLOAT2 uv;
+			XMFLOAT3 normal;
 		};
 
 		struct MatrixBufferType
@@ -35,6 +38,13 @@ namespace Ivyyy
 			XMMATRIX world;
 			XMMATRIX view;
 			XMMATRIX projection;
+		};
+
+		struct LightBufferType
+		{
+			XMFLOAT4 diffuseColor;
+			XMFLOAT3 lightDirection;
+			float padding;  // Added extra padding so structure is a multiple of 16 for CreateBuffer function requirements.
 		};
 	};
 

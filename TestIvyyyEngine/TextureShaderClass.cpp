@@ -14,9 +14,9 @@ bool TextureShaderClass::InitializeShader(const D3DShaderRenderData& shaderData,
 {
 	HRESULT result;
 	ID3D10Blob* errorMessage;
-	D3D11_INPUT_ELEMENT_DESC polygonLayout[2];
+	D3D11_INPUT_ELEMENT_DESC polygonLayout[3];
 	unsigned int numElements;
-	D3D11_BUFFER_DESC matrixBufferDesc;
+	D3D11_BUFFER_DESC lightBufferDesc;
 
 	// Initialize the pointers this function will use to null.
 	errorMessage = 0;
@@ -39,6 +39,14 @@ bool TextureShaderClass::InitializeShader(const D3DShaderRenderData& shaderData,
 	polygonLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	polygonLayout[1].InstanceDataStepRate = 0;
 
+	polygonLayout[2].SemanticName = "NORMAL";
+	polygonLayout[2].SemanticIndex = 0;
+	polygonLayout[2].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	polygonLayout[2].InputSlot = 0;
+	polygonLayout[2].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+	polygonLayout[2].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+	polygonLayout[2].InstanceDataStepRate = 0;
+
 	// Get a count of the elements in the layout.
 	numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
 
@@ -49,6 +57,8 @@ bool TextureShaderClass::InitializeShader(const D3DShaderRenderData& shaderData,
 	{
 		return false;
 	}
+
+	D3D11_BUFFER_DESC matrixBufferDesc;
 
 	// Setup the description of the dynamic matrix constant buffer that is in the vertex shader.
 	matrixBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
@@ -99,6 +109,21 @@ bool TextureShaderClass::InitializeShader(const D3DShaderRenderData& shaderData,
 		return false;
 	}
 
+	// Setup the description of the light dynamic constant buffer that is in the pixel shader.
+	// Note that ByteWidth always needs to be a multiple of 16 if using D3D11_BIND_CONSTANT_BUFFER or CreateBuffer will fail.
+	lightBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	lightBufferDesc.ByteWidth = sizeof(LightBufferType);
+	lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	lightBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	lightBufferDesc.MiscFlags = 0;
+	lightBufferDesc.StructureByteStride = 0;
+
+	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
+	result = shaderData.m_device->CreateBuffer(&lightBufferDesc, NULL, &m_lightBuffer);
+	if (FAILED(result))
+	{
+		return false;
+	}
 
 	return true;
 }
@@ -200,6 +225,27 @@ bool TextureShaderClass::SetShaderParameters(const D3DShaderRenderData& shaderDa
 	shaderData.m_deviceContext->PSSetSamplers(0, 1, &m_sampleState);
 
 	return true;
+}
+
+void Ivyyy::TextureShaderClass::ShutdownShader()
+{
+	Shader::ShutdownShader();
+
+	// Release the sampler state.
+	if (m_sampleState)
+	{
+		m_sampleState->Release();
+		m_sampleState = 0;
+	}
+
+	// Release the texture object.
+	if (m_texture)
+	{
+		m_texture->Shutdown();
+		delete m_texture;
+		m_texture = 0;
+	}
+
 }
 
 //TextureShaderClass::TextureShaderClass ()
