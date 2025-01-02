@@ -40,21 +40,15 @@ bool ColorShader::InitializeShader(const D3DShaderRenderData& shaderData, ID3D10
 	// Create the vertex input layout.
 	result = shaderData.m_device->CreateInputLayout(polygonLayout, numElements, vertexShaderBuffer->GetBufferPointer(),
 		vertexShaderBuffer->GetBufferSize(), &m_layout);
+	
 	if (FAILED(result))
 	{
 		return false;
 	}
 
-	// Setup the description of the dynamic matrix constant buffer that is in the vertex shader.
-	matrixBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-	matrixBufferDesc.ByteWidth = sizeof(MatrixBufferType);
-	matrixBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	matrixBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	matrixBufferDesc.MiscFlags = 0;
-	matrixBufferDesc.StructureByteStride = 0;
-
-	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
-	result = shaderData.m_device->CreateBuffer(&matrixBufferDesc, NULL, &m_matrixBuffer);
+	result = CreateBuffer(shaderData.m_device, &m_matrixBuffer, sizeof(MatrixBufferType), NULL
+		, D3D11_USAGE_DYNAMIC, D3D11_BIND_CONSTANT_BUFFER, D3D11_CPU_ACCESS_WRITE);
+	
 	if (FAILED(result))
 	{
 		return false;
@@ -66,7 +60,6 @@ bool ColorShader::InitializeShader(const D3DShaderRenderData& shaderData, ID3D10
 bool ColorShader::InitializeVertexBuffer(ID3D11Device* device, Mesh* mesh)
 {
 	VertexType* shaderData;
-	D3D11_BUFFER_DESC vertexBufferDesc;
 	D3D11_SUBRESOURCE_DATA vertexData;
 	HRESULT result;
 
@@ -86,21 +79,15 @@ bool ColorShader::InitializeVertexBuffer(ID3D11Device* device, Mesh* mesh)
 		shaderData[i].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 	}
 
-	// Set up the description of the static vertex buffer.
-	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(VertexType) * vertexCount;
-	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertexBufferDesc.CPUAccessFlags = 0;
-	vertexBufferDesc.MiscFlags = 0;
-	vertexBufferDesc.StructureByteStride = 0;
-
 	// Give the subresource structure a pointer to the vertex data.
 	vertexData.pSysMem = shaderData;
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 
 	// Now create the vertex buffer.
-	result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer);
+	result = CreateBuffer(device, &m_vertexBuffer, sizeof(VertexType) * vertexCount, &vertexData
+		, D3D11_USAGE_DEFAULT, D3D11_BIND_VERTEX_BUFFER, 0);
+
 	if (FAILED(result))
 	{
 		return false;
