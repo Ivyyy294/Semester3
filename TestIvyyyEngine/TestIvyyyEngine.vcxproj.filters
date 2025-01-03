@@ -16,6 +16,9 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{b0db9368-b5a2-4081-8b45-946bb5745c19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{55744fe3-4124-4c86-af48-2bda1e2fb51f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp">
@@ -112,5 +115,10 @@
     <None Include="TexturePS.hlsl">
       <Filter>Shader</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="cube.txt">
+      <Filter>Model</Filter>
+    </Text>
   </ItemGroup>
 </Project>

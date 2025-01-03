@@ -215,8 +215,11 @@ bool TextureShaderClass::SetShaderParameters(const D3DShaderRenderData& shaderDa
 	dataPtr2 = (LightBufferType*)mappedResource.pData;
 
 	// Copy the lighting variables into the constant buffer.
-	dataPtr2->diffuseColor = XMFLOAT4 (1.0f, 0.5f, 0.5f, 1.0f);
-	dataPtr2->lightDirection = XMFLOAT3(0.f, 0.f, 1.f);
+	Color diffuseColor = shaderData.m_light->GetColor();
+	Vector3 lightDirection = shaderData.m_light->GetDirection();
+
+	dataPtr2->diffuseColor = XMFLOAT4 (diffuseColor.r, diffuseColor.g, diffuseColor.b, diffuseColor.a);
+	dataPtr2->lightDirection = XMFLOAT3(lightDirection.x, lightDirection.y, lightDirection.z);
 	dataPtr2->padding = 0.0f;
 
 	// Unlock the constant buffer.

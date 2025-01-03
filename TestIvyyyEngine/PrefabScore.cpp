@@ -6,6 +6,6 @@ PrefabScore::PrefabScore ()
 {
 	AddComponent<FontMesh> ();
 	AddComponent<Score> ();
-	transform.SetSpace (Transform2D::Space::SCREEN);
-	transform.SetPivot (Transform2D::Pivot::TOPLEFT);
+	transform.SetSpace (Transform::Space::SCREEN);
+	transform.SetPivot (Transform::Pivot::TOPLEFT);
 }

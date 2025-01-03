@@ -22,8 +22,8 @@ void TreeScene::Init ()
 	BuildTree (0, 14, rootInfo);
 
 	auto debug = AddGameObject <GameObject>();
-	debug->transform.SetSpace (Transform2D::Space::SCREEN);
-	debug->transform.SetPivot (Transform2D::Pivot::TOPLEFT);
+	debug->transform.SetSpace (Transform::Space::SCREEN);
+	debug->transform.SetPivot (Transform::Pivot::TOPLEFT);
 	auto fontMesh = debug->AddComponent<FontMesh> ();
 	fontMesh->font.color = Color (255, 0,0 );
 	fontMesh->font.height = 12;

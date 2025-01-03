@@ -13,7 +13,7 @@ void LoadingText::Start ()
 	fontMesh->font.family = L"Consolas";
 	fontMesh->font.height = 16;
 	fontMesh->font.alignment = Font::VERTICAL_CENTER | Font::HORIZONTAL_TOP;
-	transform->SetSpace (Transform2D::Space::SCREEN);
+	transform->SetSpace (Transform::Space::SCREEN);
 }
 
 void LoadingText::Update ()

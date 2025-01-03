@@ -16,19 +16,20 @@ void PlayerMovement::Update ()
 	
 	//Vertical movement
 	if (Input::KeyPressed (Key::KEY_W))
-		moveVec += Vector3::Up ();
+		moveVec += Vector3::Up;
 	if (Input::KeyPressed (Key::KEY_S))
-		moveVec -= Vector3::Up ();
+		moveVec -= Vector3::Up;
 
 	//Scale
 	if (Input::KeyPressed(Key::KEY_F))
 	{
-		Vector2 newScale = transform->GetLocalScale() * (1.f - Time::DeltaTime());
-		transform->SetLocalScale (newScale);
+		Vector3 scale = transform->GetLocalScale();
+		scale = scale * (1.f - Time::DeltaTime());
+		transform->SetLocalScale (scale);
 	}
 	if (Input::KeyPressed (Key::KEY_G))
 	{
-		Vector2 newScale = transform->GetLocalScale() * (1.f + Time::DeltaTime());
+		Vector3 newScale = transform->GetLocalScale() * (1.f + Time::DeltaTime());
 		transform->SetLocalScale(newScale);
 	}
 
@@ -36,32 +37,32 @@ void PlayerMovement::Update ()
 	if (Input::KeyPressed(Key::KEY_UP))
 	{
 		Quaternion euler = Quaternion::Euler(Vector3(45.f * Time::DeltaTime(), 0.f, 0.f));
-		Quaternion newRot = transform->GetLocalRotation() * euler;
-		transform->SetLocalRotation(newRot);
+		Quaternion newRot = euler * transform->GetRotation();
+		transform->SetRotation(newRot);
 	}
 
 	if (Input::KeyPressed(Key::KEY_DOWN))
 	{
 		Quaternion euler = Quaternion::Euler(Vector3(-45.f * Time::DeltaTime(), 0.f, 0.f));
-		Quaternion newRot = transform->GetLocalRotation() * euler;
-		transform->SetLocalRotation(newRot);
+		Quaternion newRot = euler * transform->GetRotation();
+		transform->SetRotation(newRot);
 	}
 
 	if (Input::KeyPressed(Key::KEY_RIGHT))
 	{
-		Quaternion euler = Quaternion::Euler (Vector3 (0.f, 45.f * Time::DeltaTime(), 0.f));
-		Quaternion newRot = transform->GetLocalRotation() * euler;
-		transform->SetLocalRotation (newRot);
+		Quaternion euler = Quaternion::Euler (Vector3 (0.f, -45.f * Time::DeltaTime(), 0.f));
+		Quaternion newRot = euler * transform->GetRotation();
+		transform->SetRotation(newRot);
 	}
 
 	if (Input::KeyPressed(Key::KEY_LEFT))
 	{
-		Quaternion euler = Quaternion::Euler(Vector3(0.f, -45.f * Time::DeltaTime(), 0.f));
-		Quaternion newRot = transform->GetLocalRotation() * euler;
-		transform->SetLocalRotation(newRot);
+		Quaternion euler = Quaternion::Euler(Vector3(0.f, 45.f * Time::DeltaTime(), 0.f));
+		Quaternion newRot = euler * transform->GetRotation();
+		transform->SetRotation(newRot);
 	}
 
 
-	Vector2 newPos = transform->GetLocalPosition() + moveVec.Normalized() * speed * Time::DeltaTime();
+	Vector3 newPos = transform->GetLocalPosition() + moveVec.Normalized() * speed * Time::DeltaTime();
 	transform->SetLocalPosition(newPos);
 }

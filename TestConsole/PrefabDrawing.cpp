@@ -6,9 +6,9 @@ PrefabDrawing::PrefabDrawing ()
 {
 	float width = 440.f;
 	float height = 200.f;
-	transform.SetSpace (Transform2D::Space::SCREEN);
-	transform.SetPivot (Transform2D::Pivot::TOPLEFT);
-	transform.SetLocalPosition (Vector2((Screen::CurrentResolution().width - width) * 0.5f, 0.f));
+	transform.SetSpace (Transform::Space::SCREEN);
+	transform.SetPivot (Transform::Pivot::TOPLEFT);
+	transform.SetLocalPosition (Vector3((Screen::CurrentResolution().width - width) * 0.5f, 0.f, 0.f));
 	fontMesh = AddComponent<FontMesh> ().get();
 	fontMesh->SetSize (width, height);
 	fontMesh->text = L"Placeholder";

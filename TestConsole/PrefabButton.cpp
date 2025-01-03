@@ -3,8 +3,8 @@
 
 PrefabButton::PrefabButton ()
 {
-	transform.SetSpace (Transform2D::Space::SCREEN);
-	transform.SetPivot (Transform2D::Pivot::TOPLEFT);
+	transform.SetSpace (Transform::Space::SCREEN);
+	transform.SetPivot (Transform::Pivot::TOPLEFT);
 
 	fontMesh = AddComponent<FontMesh> ().get();
 	fontMesh->SetSize (100.f, 24.f);

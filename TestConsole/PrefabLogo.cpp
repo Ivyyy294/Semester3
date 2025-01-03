@@ -7,7 +7,7 @@ PrefabLogo::PrefabLogo ()
 {
 	float width = 420.f;
 	float height = 420.f;
-	transform.SetLocalPosition (Vector2((Screen::CurrentResolution().width - width) * 0.5f, 0.f));
+	transform.SetLocalPosition (Vector3((Screen::CurrentResolution().width - width) * 0.5f, 0.f, 0.f));
 	fontMesh->SetSize (width, height);
 	fontMesh->font.height = 14;
 }

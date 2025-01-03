@@ -2,7 +2,7 @@
 
 PrefabButtonController::PrefabButtonController ()
 {
-	transform.SetSpace (Transform2D::Space::SCREEN);
+	transform.SetSpace (Transform::Space::SCREEN);
 	buttonController = AddComponent <ButtonController> ().get();
 }
 

@@ -7,7 +7,7 @@ ButtonController::ButtonController ()
 void ButtonController::AddButton (PrefabButton* button)
 {
 	button->SetParent (gameObject);
-	button->transform.SetLocalPosition(Vector2::Zero);
+	button->transform.SetLocalPosition(Vector3::Zero);
 	buttonVec.push_back (button);
 }
 
@@ -27,7 +27,7 @@ void ButtonController::Update ()
 	{
 		if (i->IsActive ())
 		{
-			Vector2 localPos = i->transform.GetLocalPosition();
+			Vector3 localPos = i->transform.GetLocalPosition();
 			localPos.x = xPos;
 			i->transform.SetLocalPosition (localPos);
 			xPos += i->GetWidth ();
